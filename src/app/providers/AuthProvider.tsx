@@ -1,10 +1,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import apiClient from '@/services/api/client';
+import * as authApi from '@/services/api/auth';
 
 type User = {
   id: string;
   email: string;
   fullName: string;
-  role: string;
+  role: string | number;
 };
 
 type AuthContextType = {
@@ -12,6 +14,7 @@ type AuthContextType = {
   token: string | null;
   login: (user: User, token: string) => void;
   logout: () => void;
+  refreshUser: () => Promise<User | null>;
 };
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -28,6 +31,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (savedToken && savedUser) {
       setToken(savedToken);
       setUser(JSON.parse(savedUser));
+      // set default auth header for api client
+      apiClient.defaults.headers.common.Authorization = `Bearer ${savedToken}`;
+      // try to refresh user from backend
+      (async () => {
+        try {
+          const me = await authApi.me();
+          if (me) {
+            setUser(me as any);
+            localStorage.setItem('user', JSON.stringify(me));
+          }
+        } catch (e) {
+          // if me fails, clear stored auth
+          setUser(null);
+          setToken(null);
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          delete apiClient.defaults.headers.common.Authorization;
+        }
+      })();
     }
   }, []);
 
@@ -37,6 +59,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     localStorage.setItem("token", token);
     localStorage.setItem("user", JSON.stringify(user));
+    apiClient.defaults.headers.common.Authorization = `Bearer ${token}`;
   };
 
   const logout = () => {
@@ -47,8 +70,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     localStorage.removeItem("user");
   };
 
+  const refreshUser = async () => {
+    if (!token) return null;
+    try {
+      const me = await authApi.me();
+      setUser(me as any);
+      localStorage.setItem('user', JSON.stringify(me));
+      return me as any;
+    } catch (e) {
+      return null;
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, token, login, logout }}>
+    <AuthContext.Provider value={{ user, token, login, logout, refreshUser }}>
       {children}
     </AuthContext.Provider>
   );

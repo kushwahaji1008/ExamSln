@@ -1,11 +1,19 @@
 import { Navigate } from "react-router-dom";
 
+// Backend mapping: 0=Student, 1=Teacher, 2=Admin, 3=SuperAdmin
+const roleMap: Record<number, string> = {
+  0: "Student",
+  1: "Teacher", 
+  2: "Admin",
+  3: "SuperAdmin"
+};
+
 export default function RoleRoute({
   children,
   allowedRoles,
 }: {
   children: React.ReactNode;
-  allowedRoles: string[];
+  allowedRoles: string[]; // Ab string bhejna: ["Student", "Admin"]
 }) {
   const user = JSON.parse(localStorage.getItem("user") || "null");
 
@@ -13,7 +21,16 @@ export default function RoleRoute({
     return <Navigate to="/login" replace />;
   }
 
-  if (!allowedRoles.includes(user.role)) {
+  // Support both numeric role codes and string role names from different backends
+  let userRoleName = '';
+  if (typeof user.role === 'number') {
+    userRoleName = roleMap[user.role] || String(user.role);
+  } else if (typeof user.role === 'string') {
+    const lower = user.role.toLowerCase();
+    userRoleName = lower.charAt(0).toUpperCase() + lower.slice(1);
+  }
+
+  if (!allowedRoles.includes(userRoleName)) {
     return <Navigate to="/dashboard" replace />;
   }
 

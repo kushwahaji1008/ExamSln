@@ -11,7 +11,7 @@ export interface LoginResponse {
     id: string;
     email: string;
     fullName: string;
-    role: string;
+    role: number;
   };
 }
 
