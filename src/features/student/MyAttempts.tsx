@@ -1,76 +1,80 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { genAttempts } from '@/services/api/generated';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { History, Eye, Search } from 'lucide-react';
 
 export default function MyAttempts() {
-  const [attempts, setAttempts] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    setLoading(true);
-    genAttempts
-      .getMyAttempts()
-      .then(setAttempts)
-      .catch(() => setAttempts([]))
-      .finally(() => setLoading(false));
-  }, []);
+  const attempts = [
+    { id: 'a1', examTitle: 'System Architecture Midterm', date: '2026-08-01', score: 85, status: 'Graded', duration: '84m 12s' },
+    { id: 'a2', examTitle: 'React Hooks Quiz', date: '2026-07-28', score: 92, status: 'Graded', duration: '15m 00s' },
+    { id: 'a3', examTitle: 'Data Structures Final', date: '2026-07-20', status: 'Pending Review', duration: '120m 00s' },
+  ];
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold text-slate-900">My Attempts</h1>
-        <p className="mt-2 text-sm text-slate-500">Review your recent exam attempts and continue unfinished sessions.</p>
+    <div className="mx-auto max-w-7xl space-y-8 p-4 sm:p-6 lg:p-8 font-sans text-slate-100">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-extrabold tracking-tight text-white flex items-center gap-3">
+            <History className="h-8 w-8 text-sky-500" />
+            Attempt History
+          </h1>
+          <p className="mt-2 text-sm text-slate-400">A complete log of all your submitted assessments.</p>
+        </div>
+        
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
+          <input 
+            type="text" 
+            placeholder="Search attempts..." 
+            className="w-full sm:w-64 rounded-xl border border-slate-800 bg-slate-900/80 pl-10 pr-4 py-2 text-sm text-white outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+          />
+        </div>
       </div>
 
-      {loading ? (
-        <div className="rounded-3xl border border-slate-200 bg-white p-6 text-slate-500">Loading your attempts...</div>
-      ) : attempts.length === 0 ? (
-        <div className="rounded-3xl border border-dashed border-slate-200 bg-white p-6 text-slate-500">
-          No attempts found. Start an exam to create your first attempt.
+      <div className="rounded-3xl border border-white/10 bg-slate-900/80 backdrop-blur-xl overflow-hidden shadow-xl">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-sm text-slate-300">
+            <thead className="bg-slate-950/50 text-xs uppercase text-slate-500 border-b border-white/5">
+              <tr>
+                <th className="px-6 py-4 font-semibold">Assessment</th>
+                <th className="px-6 py-4 font-semibold">Date</th>
+                <th className="px-6 py-4 font-semibold">Time Taken</th>
+                <th className="px-6 py-4 font-semibold">Status</th>
+                <th className="px-6 py-4 font-semibold text-right">Score</th>
+                <th className="px-6 py-4 font-semibold text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-white/5">
+              {attempts.map((attempt) => (
+                <tr key={attempt.id} className="hover:bg-slate-800/50 transition">
+                  <td className="px-6 py-4 font-bold text-white">{attempt.examTitle}</td>
+                  <td className="px-6 py-4">{attempt.date}</td>
+                  <td className="px-6 py-4">{attempt.duration}</td>
+                  <td className="px-6 py-4">
+                    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold border ${
+                      attempt.status === 'Graded' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border-amber-500/20'
+                    }`}>
+                      {attempt.status}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 text-right font-bold text-white">
+                    {attempt.score !== undefined ? `${attempt.score}%` : '-'}
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    <button 
+                      onClick={() => navigate(`/student/results/${attempt.id}`)}
+                      className="inline-flex items-center justify-center p-2 rounded-lg bg-slate-800 text-slate-400 hover:bg-sky-500 hover:text-white transition"
+                    >
+                      <Eye className="h-4 w-4" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-      ) : (
-        <div className="grid gap-4">
-          {attempts.map((attempt) => (
-            <div key={attempt.id} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                  <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Attempt ID</p>
-                  <p className="mt-2 text-xl font-semibold text-slate-900">{attempt.id}</p>
-                </div>
-                <div className="space-y-1 text-right">
-                  <p className="text-sm text-slate-500">Status</p>
-                  <p className="text-base font-semibold text-slate-700">{attempt.status ?? 'Unknown'}</p>
-                </div>
-              </div>
-
-              <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                <div className="rounded-2xl bg-slate-50 p-4">
-                  <p className="text-sm text-slate-500">Exam</p>
-                  <p className="mt-2 text-base font-medium text-slate-900">{attempt.exam?.title ?? attempt.examTitle ?? 'Unknown exam'}</p>
-                </div>
-                <div className="rounded-2xl bg-slate-50 p-4">
-                  <p className="text-sm text-slate-500">Started</p>
-                  <p className="mt-2 text-base font-medium text-slate-900">{attempt.startedAt ? new Date(attempt.startedAt).toLocaleString() : 'N/A'}</p>
-                </div>
-              </div>
-
-              <div className="mt-6 flex flex-wrap gap-3">
-                <Link
-                  to={`/attempts/${attempt.id}`}
-                  className="inline-flex items-center justify-center rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-500"
-                >
-                  View attempt
-                </Link>
-                {attempt.status !== 'submitted' && attempt.status !== 'completed' && (
-                  <span className="inline-flex items-center rounded-full bg-amber-100 px-4 py-2 text-sm font-semibold text-amber-700">
-                    Continue attempt
-                  </span>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+      </div>
     </div>
   );
 }

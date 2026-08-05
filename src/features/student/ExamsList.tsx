@@ -1,46 +1,48 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { genExams } from '@/services/api/generated';
-import PageHeader from '@/components/ui/PageHeader';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FileText, ArrowRight } from 'lucide-react';
 
-export default function ExamsList() {
-  const [exams, setExams] = useState<any[]>([]);
+interface MiniExam {
+  id: string;
+  title: string;
+  dueDate: string;
+}
 
-  useEffect(() => {
-    genExams.listExams().then(setExams).catch(() => setExams([]));
-  }, []);
+interface ExamsListProps {
+  exams: MiniExam[];
+  title?: string;
+}
+
+export default function ExamsList({ exams, title = "Active Assessments" }: ExamsListProps) {
+  const navigate = useNavigate();
 
   return (
-    <div className="space-y-8">
-      <PageHeader title="Available Exams" subtitle="Choose an upcoming exam and begin your preparation with a clean, interactive experience." />
+    <div className="rounded-3xl border border-white/10 bg-slate-900/80 p-6 backdrop-blur-xl">
+      <h2 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
+        <FileText className="h-5 w-5 text-emerald-400" />
+        {title}
+      </h2>
 
       {exams.length === 0 ? (
-        <div className="rounded-[2rem] border border-dashed border-slate-300 bg-slate-50 p-10 text-center text-slate-500 shadow-sm">
-          No exams are currently available. Check back soon.
-        </div>
+        <p className="text-sm text-slate-500 text-center py-4">No exams available.</p>
       ) : (
-        <div className="grid gap-6 xl:grid-cols-2">
+        <div className="space-y-3">
           {exams.map((exam) => (
-            <Link
+            <div 
               key={exam.id}
-              to={`/student/exams/${exam.id}`}
-              className="group rounded-[2rem] border border-slate-200 bg-white p-6 shadow-lg transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-sky-100/40"
+              className="group flex items-center justify-between rounded-2xl border border-slate-800 bg-slate-950/50 p-4 transition hover:bg-slate-800"
             >
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h2 className="text-xl font-semibold text-slate-900">{exam.title || 'Untitled Exam'}</h2>
-                  <p className="mt-2 text-sm text-slate-500">{exam.description || 'Complete this exam to review your readiness.'}</p>
-                </div>
-                <span className="rounded-full bg-sky-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-sky-700">
-                  Exam
-                </span>
+              <div>
+                <h3 className="font-semibold text-slate-200">{exam.title}</h3>
+                <p className="text-xs text-slate-500 mt-1">Due: {exam.dueDate}</p>
               </div>
-              <div className="mt-6 flex flex-wrap gap-3 text-sm text-slate-500">
-                <span className="rounded-2xl bg-slate-100 px-3 py-2">Duration: {exam.durationMinutes || 'N/A'} mins</span>
-                <span className="rounded-2xl bg-slate-100 px-3 py-2">Status: {exam.status || 'Open'}</span>
-                <span className="rounded-2xl bg-slate-100 px-3 py-2">Questions: {exam.questionCount ?? '—'}</span>
-              </div>
-            </Link>
+              <button 
+                onClick={() => navigate(`/student/exam/${exam.id}`)}
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-800 text-slate-400 transition group-hover:bg-sky-500 group-hover:text-white"
+              >
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            </div>
           ))}
         </div>
       )}

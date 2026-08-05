@@ -1,63 +1,114 @@
 import axios from 'axios';
 
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:5099/api';
-
+// Create a global Axios instance
 const apiClient = axios.create({
-  baseURL: API_BASE,
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5099', // Update this to match your backend port
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-// Attach token from localStorage on each request (keeps implementation simple)
-apiClient.interceptors.request.use((config) => {
-  try {
+// 1. REQUEST INTERCEPTOR: Attach the token to every outgoing request
+apiClient.interceptors.request.use(
+  (config) => {
     const token = localStorage.getItem('token');
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-  } catch (e) {
-    // ignore
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+// Prevent infinite loops if multiple requests fail at the same time
+let isRefreshing = false;
+let failedQueue: any[] = [];
+
+const processQueue = (error: any, token: string | null = null) => {
+  failedQueue.forEach(prom => {
+    if (error) {
+      prom.reject(error);
+    } else {
+      prom.resolve(token);
+    }
+  });
+  failedQueue = [];
+};
+
+// 2. RESPONSE INTERCEPTOR: Catch 401 errors and automatically refresh the token
+apiClient.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+
+    // If the error is 401 (Unauthorized) and we haven't already retried this specific request
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      
+      // If the original request was to the refresh-token endpoint itself, the refresh token is dead. Log them out.
+      if (originalRequest.url.includes('/api/auth/refresh-token')) {
+        localStorage.clear();
+        window.location.href = '/login';
+        return Promise.reject(error);
+      }
+
+      if (isRefreshing) {
+        // If another request is already refreshing the token, pause this one and wait
+        return new Promise(function(resolve, reject) {
+          failedQueue.push({ resolve, reject });
+        }).then(token => {
+          originalRequest.headers.Authorization = 'Bearer ' + token;
+          return apiClient(originalRequest);
+        }).catch(err => {
+          return Promise.reject(err);
+        });
+      }
+
+      originalRequest._retry = true;
+      isRefreshing = true;
+
+      const refreshToken = localStorage.getItem('refreshToken');
+      const token = localStorage.getItem('token');
+
+      if (!refreshToken || !token) {
+        localStorage.clear();
+        window.location.href = '/login';
+        return Promise.reject(error);
+      }
+
+      try {
+        // Silently call the backend to get a fresh set of tokens
+        const { data } = await axios.post(`${apiClient.defaults.baseURL}/api/auth/refresh-token`, {
+          token: token,
+          refreshToken: refreshToken
+        });
+
+        // 1. Save the new tokens
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('refreshToken', data.refreshToken);
+        localStorage.setItem('user', JSON.stringify(data.user));
+
+        // 2. Tell the queued requests to proceed with the new token
+        apiClient.defaults.headers.common['Authorization'] = 'Bearer ' + data.token;
+        originalRequest.headers.Authorization = 'Bearer ' + data.token;
+        
+        processQueue(null, data.token);
+
+        // 3. Retry the original request that failed
+        return apiClient(originalRequest);
+
+      } catch (refreshError) {
+        // If the refresh token is completely expired, nuke the session and force login
+        processQueue(refreshError, null);
+        localStorage.clear();
+        window.location.href = '/login';
+        return Promise.reject(refreshError);
+      } finally {
+        isRefreshing = false;
+      }
+    }
+
+    return Promise.reject(error);
   }
-  return config;
-});
-
-const API_DEBUG = import.meta.env.VITE_API_DEBUG === 'true';
-
-if (API_DEBUG) {
-  apiClient.interceptors.request.use(
-    (config) => {
-      try {
-        console.debug('[api] Request:', config.method?.toUpperCase(), config.url, config.data);
-      } catch (e) {
-        /* ignore logging errors */
-      }
-      return config;
-    },
-    (err) => {
-      console.error('[api] Request error:', err);
-      return Promise.reject(err);
-    }
-  );
-
-  apiClient.interceptors.response.use(
-    (res) => {
-      try {
-        console.debug('[api] Response:', res.status, res.config.url, res.data);
-      } catch (e) {
-        /* ignore */
-      }
-      return res;
-    },
-    (err) => {
-      try {
-        console.error('[api] Response error:', err?.response?.status, err?.response?.config?.url, err?.response?.data);
-      } catch (e) {
-        /* ignore */
-      }
-      return Promise.reject(err);
-    }
-  );
-}
+);
 
 export default apiClient;

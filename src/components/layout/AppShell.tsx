@@ -1,33 +1,32 @@
-import { Outlet, useLocation } from "react-router-dom";
-import Sidebar from "./Sidebar";
-import Header from "./Header";
+import React, { useState } from 'react';
+import { Outlet } from 'react-router-dom';
+import Sidebar from './Sidebar';
+import Header from './Header';
 
 export default function AppShell() {
-  const location = useLocation();
-  const authPaths = ["/login", "/register"];
-  const hideShell = authPaths.includes(location.pathname);
-
-  if (hideShell) {
-    return (
-      <div className="min-h-screen bg-slate-100">
-        <main className="p-8">
-          <Outlet />
-        </main>
-      </div>
-    );
-  }
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex bg-slate-100 min-h-screen">
-      <Sidebar />
+    <div className="flex h-screen overflow-hidden bg-slate-950 font-sans text-slate-100">
+      
+      {/* Sidebar Layout */}
+      <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
 
-      <div className="flex-1 flex flex-col">
-        <Header />
-
-        <main className="p-8">
-          <Outlet />
+      {/* Main Content Layout */}
+      <div className="flex flex-1 flex-col overflow-hidden relative">
+        {/* Background ambient lighting for the whole app */}
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-sky-500/5 rounded-full blur-3xl pointer-events-none -z-10" />
+        
+        <Header setSidebarOpen={setSidebarOpen} />
+        
+        {/* Page Content Scroll Area */}
+        <main className="flex-1 overflow-y-auto custom-scrollbar">
+          <div className="min-h-full">
+            <Outlet />
+          </div>
         </main>
       </div>
+
     </div>
   );
 }

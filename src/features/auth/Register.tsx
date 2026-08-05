@@ -1,169 +1,299 @@
-import { useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Navigate, useNavigate, Link } from 'react-router-dom';
+import {
+  User as UserIcon,
+  Mail,
+  Lock,
+  Phone,
+  Eye,
+  EyeOff,
+  GraduationCap,
+  BookOpenCheck,
+  ArrowRight,
+  Loader2,
+  Sparkles,
+  CheckCircle2,
+} from 'lucide-react';
 import { useAuth } from '@/app/providers/AuthProvider';
 import { useRegister } from './hooks/useRegister';
+import { UserRole } from '@/features/auth/types/auth';
 
 export default function Register() {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState<number>(0); // 0=student, 1=teacher
+  const [showPassword, setShowPassword] = useState(false);
   const [phone, setPhone] = useState('');
+  // OpenAPI definition defaults: Instructor = 1, Student = 0
+  const [role, setRole] = useState<UserRole>(UserRole.Student);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const { user, login } = useAuth();
-  const navigate = useNavigate();
-  const { register } = useRegister();
 
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const { executeRegister } = useRegister();
+
+  // Redirect if already authenticated
   if (user) {
-    return <Navigate to="/dashboard" replace />;
+    if (user.role === UserRole.Admin) return <Navigate to="/admin" replace />;
+    if (user.role === UserRole.Instructor) return <Navigate to="/teacher" replace />;
+    return <Navigate to="/student" replace />;
   }
 
-  const handleRegister = async () => {
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
     setError(null);
-    setLoading(true);
 
+    // Form Validations
     if (!fullName.trim()) {
-      setError('Full name is required');
-      setLoading(false);
+      setError('Full name is required.');
       return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError('Valid email is required');
-      setLoading(false);
+      setError('Please enter a valid email address.');
       return;
     }
     if (password.length < 6) {
-      setError('Password must be at least 6 characters');
-      setLoading(false);
+      setError('Password must be at least 6 characters long.');
       return;
     }
 
+    setLoading(true);
+
     try {
-      const result = await register({ fullName, email, password, phone: phone || undefined, role });
-      if (!result.success) {
-        setError(result.error || 'Registration failed');
+      const result = await executeRegister({
+        fullName: fullName.trim(),
+        email: email.trim(),
+        password,
+        phone: phone.trim() || undefined,
+        role,
+      });
+
+      // If the hook returns success: false
+      if (result && !result.success) {
+        setError(result.error || 'Registration failed. Please check your details.');
         return;
       }
 
-      if (result.status === 204) {
-        alert('Registration successful. Please login.');
-        navigate('/login');
-        return;
-      }
+      // 🚀 THE FIX: Registration is successful! The backend has sent the OTP email.
+      // Redirect to the Verify Email page and pass the email address along.
+      navigate('/verify-email', { state: { email: email.trim() } });
 
-      const data = result.data;
-      if (data?.token && data?.user) {
-        login(data.user as any, data.token);
-        const roleVal = typeof data.user.role === 'string' ? data.user.role.toLowerCase() : Number(data.user.role);
-        if (roleVal === 0 || roleVal === 'student') navigate('/student');
-        else if (roleVal === 1 || roleVal === 'teacher') navigate('/teacher');
-        else navigate('/dashboard');
-        return;
-      }
-
-      alert('Registration completed. Please login.');
-      navigate('/login');
-    } catch {
-      setError('Unable to complete registration. Please try again.');
+    } catch (err: any) {
+      // Catching any unexpected errors or Axios errors thrown by the hook
+      setError(err?.response?.data?.message || err?.message || 'Unable to complete registration. Please try again.');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 px-6 py-12">
-      <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-        <section className="rounded-[2rem] bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 p-10 text-white shadow-2xl shadow-black/40">
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm uppercase tracking-[0.24em] text-slate-100 shadow-sm shadow-white/10">
-            Ready to join?
-          </div>
-          <h1 className="mt-8 text-5xl font-semibold leading-tight">Create your account and get started.</h1>
-          <p className="mt-6 max-w-xl text-base leading-7 text-slate-200/85">
-            Choose student or teacher access, then manage your dashboard and exams with a beautiful interface.
-          </p>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2">
-            <div className="rounded-3xl bg-white/10 p-5 ring-1 ring-white/15 backdrop-blur-xl transition hover:bg-white/15">
-              <p className="text-sm uppercase tracking-[0.24em] text-slate-300">Student</p>
-              <p className="mt-3 font-semibold text-white">Track courses and attempts.</p>
-            </div>
-            <div className="rounded-3xl bg-white/10 p-5 ring-1 ring-white/15 backdrop-blur-xl transition hover:bg-white/15">
-              <p className="text-sm uppercase tracking-[0.24em] text-slate-300">Teacher</p>
-              <p className="mt-3 font-semibold text-white">Create exams and review results.</p>
-            </div>
-          </div>
-        </section>
+    <div className="min-h-screen w-full bg-slate-950 text-slate-100 flex items-center justify-center p-4 sm:p-6 lg:p-8 relative overflow-hidden font-sans">
+      {/* Background Decorative Gradients */}
+      <div className="absolute top-1/4 -left-32 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="rounded-[2rem] bg-slate-900/95 p-8 shadow-2xl shadow-black/40 ring-1 ring-white/10">
-          <div className="mb-8">
-            <span className="rounded-full bg-slate-800 px-4 py-2 text-sm uppercase tracking-[0.24em] text-slate-300">Register</span>
-            <h2 className="mt-6 text-3xl font-semibold text-white">Join the platform</h2>
-            <p className="mt-3 text-sm leading-6 text-slate-400">
-              Fill in your details and continue to your tailored experience.
+      <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+        
+        {/* Left Hero Visual Card */}
+        <div className="lg:col-span-6 hidden lg:flex flex-col justify-between rounded-3xl bg-gradient-to-br from-slate-900/80 via-slate-900/40 to-slate-950/80 p-12 ring-1 ring-white/10 backdrop-blur-2xl min-h-[680px]">
+          <div className="space-y-6">
+            <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-emerald-400">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Create Your Account</span>
+            </div>
+
+            <h1 className="text-5xl font-extrabold leading-tight tracking-tight text-white">
+              Start your journey with <span className="bg-gradient-to-r from-emerald-400 via-teal-400 to-sky-400 bg-clip-text text-transparent">ExamSolution</span>.
+            </h1>
+
+            <p className="text-slate-400 text-lg leading-relaxed max-w-xl">
+              Join thousands of students and teachers using adaptive assessment workflows, course delivery systems, and live proctoring.
             </p>
           </div>
 
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-slate-200">Full name</label>
-              <input
-                className="mt-2 w-full rounded-3xl border border-slate-800 bg-slate-950 px-4 py-3 text-slate-100 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/20"
-                placeholder="Full name"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-              />
+          <div className="space-y-3 mt-8">
+            <div className="flex items-center gap-3 text-slate-300 text-sm">
+              <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+              <span>Personalized student progress tracking & instant reports</span>
             </div>
-            <div>
-              <label className="block text-sm font-medium text-slate-200">Email</label>
-              <input
-                className="mt-2 w-full rounded-3xl border border-slate-800 bg-slate-950 px-4 py-3 text-slate-100 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/20"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+            <div className="flex items-center gap-3 text-slate-300 text-sm">
+              <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+              <span>Full teacher control for question bank and exam creation</span>
             </div>
-            <div>
-              <label className="block text-sm font-medium text-slate-200">Password</label>
-              <input
-                className="mt-2 w-full rounded-3xl border border-slate-800 bg-slate-950 px-4 py-3 text-slate-100 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/20"
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-slate-200">Role</label>
-              <select
-                className="mt-2 w-full rounded-3xl border border-slate-800 bg-slate-950 px-4 py-3 text-slate-100 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/20"
-                value={role}
-                onChange={(e) => setRole(Number(e.target.value))}
-              >
-                <option value={0}>Student</option>
-                <option value={1}>Teacher</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-slate-200">Phone (optional)</label>
-              <input
-                className="mt-2 w-full rounded-3xl border border-slate-800 bg-slate-950 px-4 py-3 text-slate-100 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/20"
-                placeholder="Phone (optional)"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-              />
+            <div className="flex items-center gap-3 text-slate-300 text-sm">
+              <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+              <span>Enterprise-grade security and automated anti-cheat logs</span>
             </div>
           </div>
-
-          {error && <div className="mt-4 rounded-3xl bg-rose-500/10 px-4 py-3 text-sm text-rose-200">{error}</div>}
-
-          <button
-            className="mt-8 w-full rounded-3xl bg-emerald-500 px-6 py-3 text-base font-semibold text-slate-950 shadow-lg shadow-emerald-500/20 transition hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-60"
-            onClick={handleRegister}
-            disabled={loading}
-          >
-            {loading ? 'Creating account...' : 'Register'}
-          </button>
         </div>
+
+        {/* Right Registration Form */}
+        <div className="lg:col-span-6 w-full rounded-3xl bg-slate-900/90 border border-white/10 p-8 sm:p-10 shadow-2xl backdrop-blur-xl">
+          <div className="mb-6">
+            <h2 className="text-3xl font-bold text-white tracking-tight">Register</h2>
+            <p className="mt-1.5 text-sm text-slate-400">
+              Select your role and enter your details to create an account.
+            </p>
+          </div>
+
+          <form onSubmit={handleRegister} className="space-y-4">
+            
+            {/* Interactive Role Card Picker */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+                I am joining as
+              </label>
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  type="button"
+                  onClick={() => setRole(UserRole.Student)}
+                  className={`flex items-center gap-3 p-3.5 rounded-xl border text-left transition duration-200 ${
+                    role === UserRole.Student
+                      ? 'border-emerald-500 bg-emerald-500/10 text-white ring-1 ring-emerald-500'
+                      : 'border-slate-800 bg-slate-950/60 text-slate-400 hover:border-slate-700'
+                  }`}
+                >
+                  <GraduationCap className={`w-5 h-5 ${role === UserRole.Student ? 'text-emerald-400' : 'text-slate-500'}`} />
+                  <div>
+                    <div className="text-sm font-semibold">Student</div>
+                    <div className="text-[11px] opacity-70">Take exams & learn</div>
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setRole(UserRole.Instructor)}
+                  className={`flex items-center gap-3 p-3.5 rounded-xl border text-left transition duration-200 ${
+                    role === UserRole.Instructor
+                      ? 'border-emerald-500 bg-emerald-500/10 text-white ring-1 ring-emerald-500'
+                      : 'border-slate-800 bg-slate-950/60 text-slate-400 hover:border-slate-700'
+                  }`}
+                >
+                  <BookOpenCheck className={`w-5 h-5 ${role === UserRole.Instructor ? 'text-emerald-400' : 'text-slate-500'}`} />
+                  <div>
+                    <div className="text-sm font-semibold">Teacher</div>
+                    <div className="text-[11px] opacity-70">Create & manage exams</div>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            {/* Full Name Field */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+                Full Name
+              </label>
+              <div className="relative">
+                <UserIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                <input
+                  type="text"
+                  required
+                  placeholder="John Doe"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  className="w-full rounded-xl border border-slate-800 bg-slate-950/80 pl-11 pr-4 py-3 text-sm text-slate-100 placeholder:text-slate-600 outline-none transition duration-200 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+                />
+              </div>
+            </div>
+
+            {/* Email Field */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+                Email Address
+              </label>
+              <div className="relative">
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                <input
+                  type="email"
+                  required
+                  placeholder="name@organization.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full rounded-xl border border-slate-800 bg-slate-950/80 pl-11 pr-4 py-3 text-sm text-slate-100 placeholder:text-slate-600 outline-none transition duration-200 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+                />
+              </div>
+            </div>
+
+            {/* Password Field */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+                Password
+              </label>
+              <div className="relative">
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  required
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full rounded-xl border border-slate-800 bg-slate-950/80 pl-11 pr-11 py-3 text-sm text-slate-100 placeholder:text-slate-600 outline-none transition duration-200 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition"
+                  aria-label="Toggle Password Visibility"
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+            </div>
+
+            {/* Phone Field (Optional) */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+                Phone Number <span className="text-slate-500 lowercase">(optional)</span>
+              </label>
+              <div className="relative">
+                <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                <input
+                  type="tel"
+                  placeholder="+1 (555) 000-0000"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="w-full rounded-xl border border-slate-800 bg-slate-950/80 pl-11 pr-4 py-3 text-sm text-slate-100 placeholder:text-slate-600 outline-none transition duration-200 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+                />
+              </div>
+            </div>
+
+            {/* Error Message */}
+            {error && (
+              <div className="rounded-xl bg-rose-500/10 border border-rose-500/20 p-3 text-xs font-medium text-rose-400">
+                {error}
+              </div>
+            )}
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full mt-2 inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 py-3.5 px-6 text-sm font-semibold text-slate-950 shadow-lg shadow-emerald-500/20 transition-all duration-200 hover:bg-emerald-400 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-emerald-500"
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Creating Account...</span>
+                </>
+              ) : (
+                <>
+                  <span>Create Account</span>
+                  <ArrowRight className="w-4 h-4" />
+                </>
+              )}
+            </button>
+          </form>
+
+          {/* Login Redirect */}
+          <div className="mt-6 text-center text-xs text-slate-400">
+            Already have an account?{' '}
+            <Link to="/login" className="font-semibold text-emerald-400 hover:text-emerald-300 transition underline underline-offset-4">
+              Sign in instead
+            </Link>
+          </div>
+        </div>
+
       </div>
     </div>
   );

@@ -1,96 +1,106 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import apiClient from '@/services/api/client';
-import * as authApi from '@/services/api/auth';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { type User, UserRole } from '@/features/auth/types/auth';
+import { getMe } from '@/features/auth/services/authService';
 
-type User = {
-  id: string;
-  email: string;
-  fullName: string;
-  role: string | number;
-};
-
-type AuthContextType = {
+interface AuthContextType {
   user: User | null;
   token: string | null;
-  login: (user: User, token: string) => void;
+  isAuthenticated: boolean;
+  isLoading: boolean;
+  // UPDATE: Added refreshToken to the login signature
+  login: (user: User, token: string, refreshToken: string) => void;
   logout: () => void;
-  refreshUser: () => Promise<User | null>;
-};
+  refreshUser: () => Promise<void>;
+}
 
-const AuthContext = createContext<AuthContextType | null>(null);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [token, setToken] = useState<string | null>(null);
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [token, setToken] = useState<string | null>(() => localStorage.getItem('token'));
+  const [user, setUser] = useState<User | null>(() => {
+    const saved = localStorage.getItem('user');
+    try { return saved ? JSON.parse(saved) : null; } catch { return null; }
+  });
+  
+  const [isLoading, setIsLoading] = useState<boolean>(!!token && !user);
 
-  // 🔥 Load from localStorage on refresh
   useEffect(() => {
-    const savedToken = localStorage.getItem("token");
-    const savedUser = localStorage.getItem("user");
-
-    if (savedToken && savedUser) {
-      setToken(savedToken);
-      setUser(JSON.parse(savedUser));
-      // set default auth header for api client
-      apiClient.defaults.headers.common.Authorization = `Bearer ${savedToken}`;
-      // try to refresh user from backend
-      (async () => {
+    const verifySession = async () => {
+      if (token && !user) {
         try {
-          const me = await authApi.me();
-          if (me) {
-            setUser(me as any);
-            localStorage.setItem('user', JSON.stringify(me));
+          const currentUser = await getMe();
+          
+          let safeRole = currentUser.role;
+          if (typeof safeRole === 'string') {
+            const lower = String(safeRole).toLowerCase();
+            if (lower === 'student') safeRole = 0;
+            else if (lower === 'teacher' || lower === 'instructor') safeRole = 1;
+            else if (lower === 'admin') safeRole = 2;
+            else safeRole = Number(safeRole);
           }
-        } catch (e) {
-          // if me fails, clear stored auth
-          setUser(null);
-          setToken(null);
-          localStorage.removeItem('token');
-          localStorage.removeItem('user');
-          delete apiClient.defaults.headers.common.Authorization;
+          currentUser.role = safeRole as UserRole;
+
+          setUser(currentUser);
+          localStorage.setItem('user', JSON.stringify(currentUser));
+        } catch {
+          logout();
         }
-      })();
+      }
+      setIsLoading(false);
+    };
+
+    verifySession();
+  }, [token]);
+
+  // UPDATE: Now accepts refreshToken and saves it
+  const login = (newUser: User, newToken: string, newRefreshToken: string) => {
+    let safeRole = newUser.role;
+    if (typeof safeRole === 'string') {
+      const lower = String(safeRole).toLowerCase();
+      if (lower === 'student') safeRole = 0;
+      else if (lower === 'teacher' || lower === 'instructor') safeRole = 1;
+      else if (lower === 'admin') safeRole = 2;
+      else safeRole = Number(safeRole);
     }
-  }, []);
+    newUser.role = safeRole as UserRole;
 
-  const login = (user: User, token: string) => {
-    setUser(user);
-    setToken(token);
-
-    localStorage.setItem("token", token);
-    localStorage.setItem("user", JSON.stringify(user));
-    apiClient.defaults.headers.common.Authorization = `Bearer ${token}`;
+    setToken(newToken);
+    setUser(newUser);
+    
+    // SAVE TO LOCAL STORAGE
+    localStorage.setItem('token', newToken);
+    localStorage.setItem('refreshToken', newRefreshToken);
+    localStorage.setItem('user', JSON.stringify(newUser));
   };
 
   const logout = () => {
-    setUser(null);
     setToken(null);
-
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    setUser(null);
+    localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('user');
   };
 
   const refreshUser = async () => {
-    if (!token) return null;
+    if (!token) return;
     try {
-      const me = await authApi.me();
-      setUser(me as any);
-      localStorage.setItem('user', JSON.stringify(me));
-      return me as any;
-    } catch (e) {
-      return null;
+      const currentUser = await getMe();
+      setUser(currentUser);
+      localStorage.setItem('user', JSON.stringify(currentUser));
+    } catch {
+      logout();
     }
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout, refreshUser }}>
+    <AuthContext.Provider value={{ user, token, isAuthenticated: !!token && !!user, isLoading, login, logout, refreshUser }}>
       {children}
     </AuthContext.Provider>
   );
-}
+};
 
 export const useAuth = () => {
-  const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error("useAuth must be inside AuthProvider");
-  return ctx;
+  const context = useContext(AuthContext);
+  if (!context) throw new Error('useAuth must be used within AuthProvider');
+  return context;
 };

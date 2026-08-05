@@ -1,21 +1,20 @@
 import apiClient from './client';
+import type { AxiosResponse } from 'axios';
+import type { 
+  AuthResponse, 
+  LoginPayload, 
+  RegisterPayload, 
+  User 
+} from '@/features/auth/types/auth';
 
-export type LoginPayload = { email: string; password: string };
-export type RegisterPayload = { fullName: string; email: string; password: string; phone?: string; role: number };
-
-export type AuthResponse = { token: string; user: { id: number | string; fullName?: string; email: string; role: number | string } };
-
-export const login = async (payload: LoginPayload) => {
-  const res = await apiClient.post<AuthResponse>('/auth/login', payload);
-  return res.data;
+export const login = (data: LoginPayload): Promise<AxiosResponse<AuthResponse>> => {
+  return apiClient.post<AuthResponse>('/api/auth/login', data);
 };
 
-export const register = async (payload: RegisterPayload) => {
-  const res = await apiClient.post<AuthResponse>('/auth/register', payload);
-  return { status: res.status, data: res.data };
+export const register = (data: RegisterPayload): Promise<AxiosResponse<AuthResponse | void>> => {
+  return apiClient.post('/api/auth/register', data);
 };
 
-export const me = async () => {
-  const res = await apiClient.get('/auth/me');
-  return res.data;
+export const me = (): Promise<AxiosResponse<User>> => {
+  return apiClient.get<User>('/api/auth/me');
 };

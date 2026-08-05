@@ -1,19 +1,46 @@
-import axios from "axios";
+import axios, {  type AxiosInstance, type InternalAxiosRequestConfig } from "axios";
 
-const api = axios.create({
-  baseURL: "http://localhost:5099/api", // change if your .NET runs on different port
+// Environment-driven base URL with local fallback
+const API_BASE_URL = import.meta.env.VITE_API_BASE || "http://localhost:5099/api";
+
+export const api: AxiosInstance = axios.create({
+  baseURL: API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
+  timeout: 10000, // 10-second request timeout safeguard
 });
 
-// Attach JWT token automatically
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+// Request Interceptor: Attach JWT token automatically
+api.interceptors.request.use(
+  (config: InternalAxiosRequestConfig) => {
+    const token = localStorage.getItem("token");
+
+    if (token && config.headers) {
+      config.headers.set("Authorization", `Bearer ${token}`);
+    }
+
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+// Response Interceptor: Global Error Handling & Session Expiry
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    // Automatically purge session and redirect on expired / invalid token
+    if (error.response?.status === 401) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+
+      if (window.location.pathname !== "/login") {
+        window.location.href = "/login";
+      }
+    }
+
+    return Promise.reject(error);
   }
-  return config;
-});
+);
 
 export default api;
