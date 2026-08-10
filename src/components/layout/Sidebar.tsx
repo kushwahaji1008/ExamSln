@@ -1,9 +1,9 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { 
-  LayoutDashboard, BookOpen, FileText, BarChart3, Video, 
-  Calendar, FolderDown, LogOut, User as UserIcon, Shield, 
-  HelpCircle, Users, Activity, Settings, Sparkles, X
+  LayoutDashboard, BookOpen, FileText, BarChart3, 
+  LogOut, User as UserIcon, Shield, 
+  HelpCircle, Users, Activity, Sparkles, X
 } from 'lucide-react';
 import { useAuth } from '@/app/providers/AuthProvider';
 
@@ -21,58 +21,33 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
     navigate('/login');
   };
 
-  // Generate navigation links strictly based on role: 0=Student, 1=Teacher, 2=Admin, 3=SuperAdmin
+  // Generate navigation links strictly based on role
   const getNavLinks = () => {
     const role = user?.role;
     
     if (role === 0 || role === 'Student') {
       return [
         { name: 'Dashboard', path: '/student', icon: LayoutDashboard },
-        { name: 'My Courses', path: '/student/courses', icon: BookOpen },
-        { name: 'All Exams', path: '/student/exams', icon: FileText },
-        { name: 'Results', path: '/student/results', icon: BarChart3 },
-        { name: 'Live Classes', path: '/student/live', icon: Video },
-        { name: 'Schedule', path: '/student/schedule', icon: Calendar },
-        { name: 'Resources', path: '/student/resources', icon: FolderDown },
-        { name: 'All Courses', path: '/student/courses', icon: BookOpen },
-        { name: 'Exams', path: '/student/exams', icon: FileText },
-        { name: 'Results', path: '/student/results', icon: BarChart3 },
-        { name: 'Live Classes', path: '/student/live', icon: Video },
-        { name: 'Schedule', path: '/student/schedule', icon: Calendar },
-        { name: 'Resources', path: '/student/resources', icon: FolderDown },
+        { name: 'Courses', path: '/student/courses', icon: BookOpen },
+        { name: 'Exam Center', path: '/student/exams', icon: FileText },
+        { name: 'My Attempts', path: '/student/attempts', icon: BarChart3 },
       ];
     }
     
     if (role === 1 || role === 'Teacher') {
       return [
         { name: 'Dashboard', path: '/teacher', icon: LayoutDashboard },
-        { name: 'My Exams', path: '/teacher/exams', icon: FileText },
+        { name: 'Course Manager', path: '/teacher/courses', icon: BookOpen },
+        { name: 'Exam Manager', path: '/teacher/exams', icon: FileText },
         { name: 'Question Bank', path: '/teacher/questions', icon: HelpCircle },
-        { name: 'Live Classes', path: '/teacher/live', icon: Video },
-        { name: 'Results & Grading', path: '/teacher/results', icon: BarChart3 },
-        { name: 'My Courses', path: '/student/courses', icon: BookOpen },
-        { name: 'Exams', path: '/student/exams', icon: FileText },
-        { name: 'Results', path: '/student/results', icon: BarChart3 },
-        { name: 'Live Classes', path: '/student/live', icon: Video },
-        { name: 'Schedule', path: '/student/schedule', icon: Calendar },
-        { name: 'Resources', path: '/student/resources', icon: FolderDown },
-
       ];
     }
     
     if (role === 2 || role === 'Admin' || role === 3 || role === 'SuperAdmin') {
       return [
         { name: 'Dashboard', path: '/admin', icon: LayoutDashboard },
-        { name: 'Users', path: '/admin/users', icon: Users },
-        { name: 'System Health', path: '/admin/health', icon: Activity },
-        { name: 'Content Review', path: '/admin/content', icon: Shield },
-        { name: 'Settings', path: '/admin/settings', icon: Settings },
-        { name: 'My Courses', path: '/student/courses', icon: BookOpen },
-        { name: 'Exams', path: '/student/exams', icon: FileText },
-        { name: 'Results', path: '/student/results', icon: BarChart3 },
-        { name: 'Live Classes', path: '/student/live', icon: Video },
-        { name: 'Schedule', path: '/student/schedule', icon: Calendar },
-        { name: 'Resources', path: '/student/resources', icon: FolderDown },
+        { name: 'User Management', path: '/admin/users', icon: Users },
+        { name: 'System Health', path: '/maintenance', icon: Activity },
       ];
     }
 
@@ -120,7 +95,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
               <NavLink
                 key={link.name}
                 to={link.path}
-                onClick={() => setIsOpen(false)} // Close on mobile click
+                onClick={() => setIsOpen(false)}
                 end={link.path === '/student' || link.path === '/teacher' || link.path === '/admin'}
                 className={({ isActive }) =>
                   `flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200 ${
