@@ -2,11 +2,11 @@ import axios from 'axios';
 
 // Create a global Axios instance
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5099', // Update this to match your backend port
+  baseURL: import.meta.env.VITE_API_BASE || 'http://localhost:5099', // Update this to match your backend port
   headers: {
     'Content-Type': 'application/json',
   },
-});
+}); ;lk
 
 // 1. REQUEST INTERCEPTOR: Attach the token to every outgoing request
 apiClient.interceptors.request.use(
