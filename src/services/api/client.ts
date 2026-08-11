@@ -6,7 +6,7 @@ const apiClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-}); ;lk
+});
 
 // 1. REQUEST INTERCEPTOR: Attach the token to every outgoing request
 apiClient.interceptors.request.use(
