@@ -8,13 +8,13 @@ import type {
 } from '@/features/auth/types/auth';
 
 export const login = (data: LoginPayload): Promise<AxiosResponse<AuthResponse>> => {
-  return apiClient.post<AuthResponse>('/api/auth/login', data);
+  return apiClient.post<AuthResponse>('/auth/login', data);
 };
 
 export const register = (data: RegisterPayload): Promise<AxiosResponse<AuthResponse | void>> => {
-  return apiClient.post('/api/auth/register', data);
+  return apiClient.post('/auth/register', data);
 };
 
 export const me = (): Promise<AxiosResponse<User>> => {
-  return apiClient.get<User>('/api/auth/me');
+  return apiClient.get<User>('/auth/me');
 };

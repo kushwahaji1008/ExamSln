@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create a global Axios instance
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE || 'http://localhost:5099', // Update this to match your backend port
+  baseURL: import.meta.env.VITE_API_BASE || 'http://localhost:5099/api', // Update this to match your backend port
   headers: {
     'Content-Type': 'application/json',
   },
@@ -45,7 +45,7 @@ apiClient.interceptors.response.use(
     if (error.response?.status === 401 && !originalRequest._retry) {
       
       // If the original request was to the refresh-token endpoint itself, the refresh token is dead. Log them out.
-      if (originalRequest.url.includes('/api/auth/refresh-token')) {
+      if (originalRequest.url.includes('/auth/refresh-token')) {
         localStorage.clear();
         window.location.href = '/login';
         return Promise.reject(error);
@@ -77,7 +77,7 @@ apiClient.interceptors.response.use(
 
       try {
         // Silently call the backend to get a fresh set of tokens
-        const { data } = await axios.post(`${apiClient.defaults.baseURL}/api/auth/refresh-token`, {
+        const { data } = await axios.post(`${apiClient.defaults.baseURL}/auth/refresh-token`, {
           token: token,
           refreshToken: refreshToken
         });
