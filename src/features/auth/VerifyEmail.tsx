@@ -69,9 +69,9 @@ export default function VerifyEmail() {
 
   return (
     <div className="min-h-screen w-full bg-slate-950 text-slate-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-md rounded-3xl bg-slate-900/90 border border-white/10 p-8 shadow-2xl backdrop-blur-xl">
+      <div className="w-full max-w-md rounded-3xl bg-slate-900/90 border border-border/10 p-8 shadow-2xl backdrop-blur-xl">
         
-        <h2 className="text-3xl font-bold text-white tracking-tight mb-2">Verify Your Email</h2>
+        <h2 className="text-3xl font-bold text-primary-foreground tracking-tight mb-2">Verify Your Email</h2>
         <p className="text-sm text-slate-400 mb-8">
           We sent a 6-digit verification code to <span className="font-semibold text-sky-400">{email}</span>.
         </p>
@@ -105,7 +105,7 @@ export default function VerifyEmail() {
           <button 
             type="submit" 
             disabled={loading || otp.length < 6} 
-            className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-sky-500 py-3.5 px-6 text-sm font-semibold text-white shadow-lg transition-all hover:bg-sky-400 disabled:opacity-50"
+            className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-sky-500 py-3.5 px-6 text-sm font-semibold text-primary-foreground shadow-lg transition-all hover:bg-sky-400 disabled:opacity-50"
           >
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <span>Verify & Continue</span>}
             {!loading && <ArrowRight className="w-4 h-4" />}

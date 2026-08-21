@@ -34,7 +34,7 @@ export default function MyExams() {
       try {
         setLoading(true);
         // Ensure this matches your backend route for fetching exams
-        const response = await apiClient.get('/api/exams'); 
+        const response = await apiClient.get('/exams'); 
         setExams(response.data);
         setError(null);
       } catch (err: any) {
@@ -57,7 +57,7 @@ export default function MyExams() {
     if (!window.confirm("Are you sure you want to delete this exam? This action cannot be undone.")) return;
     
     try {
-      await apiClient.delete(`/api/exams/${examId}`);
+      await apiClient.delete(`/exams/${examId}`);
       // Remove from UI after successful deletion
       setExams(exams.filter(e => e.id !== examId));
     } catch (err) {
@@ -86,10 +86,10 @@ export default function MyExams() {
             placeholder="Search exams..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-full border border-slate-200 bg-white pl-11 pr-4 py-3 text-sm text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-sm"
+            className="w-full rounded-full border border-slate-200 bg-card pl-11 pr-4 py-3 text-sm text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-sm"
           />
         </div>
-        <Link className="inline-flex items-center justify-center gap-2 rounded-full bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/30 transition hover:bg-indigo-500" to="/teacher/exams/create">
+        <Link className="inline-flex items-center justify-center gap-2 rounded-full bg-indigo-600 px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-indigo-500/30 transition hover:bg-indigo-500" to="/teacher/exams/create">
           <Plus className="w-4 h-4" /> New Exam
         </Link>
       </div>
@@ -112,7 +112,7 @@ export default function MyExams() {
 
       {/* Empty State */}
       {!loading && !error && filteredExams.length === 0 && (
-        <div className="text-center py-20 border-2 border-dashed border-slate-200 rounded-[2rem] bg-white">
+        <div className="text-center py-20 border-2 border-dashed border-slate-200 rounded-[2rem] bg-card">
           <FileText className="w-12 h-12 mx-auto mb-3 text-slate-300" />
           <h3 className="text-lg font-bold text-slate-900 mb-1">No exams found</h3>
           <p className="text-slate-500 mb-6">You haven't created any assessments yet.</p>
@@ -126,7 +126,7 @@ export default function MyExams() {
       {!loading && !error && filteredExams.length > 0 && (
         <div className="grid gap-6 xl:grid-cols-3 sm:grid-cols-2">
           {filteredExams.map((exam) => (
-            <div key={exam.id} className="group flex flex-col rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-100">
+            <div key={exam.id} className="group flex flex-col rounded-[2rem] border border-slate-200 bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-100">
               
               <div className="flex items-start justify-between gap-4 mb-4">
                 <div className="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center shrink-0 border border-indigo-100">

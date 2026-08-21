@@ -6,7 +6,7 @@ export default function Table({
   children,
 }: TableProps) {
   return (
-    <div className="overflow-x-auto rounded-2xl border bg-white shadow-sm">
+    <div className="overflow-x-auto rounded-2xl border bg-card shadow-sm">
       <table className="w-full text-left">
         {children}
       </table>

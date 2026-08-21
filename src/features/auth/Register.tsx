@@ -96,14 +96,14 @@ export default function Register() {
       <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
         
         {/* Left Hero Visual Card */}
-        <div className="lg:col-span-6 hidden lg:flex flex-col justify-between rounded-3xl bg-gradient-to-br from-slate-900/80 via-slate-900/40 to-slate-950/80 p-12 ring-1 ring-white/10 backdrop-blur-2xl min-h-[680px]">
+        <div className="lg:col-span-6 hidden lg:flex flex-col justify-between rounded-3xl bg-gradient-to-br from-slate-900/80 via-slate-900/40 to-slate-950/80 p-12 ring-1 ring-border/10 backdrop-blur-2xl min-h-[680px]">
           <div className="space-y-6">
             <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-emerald-400">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Create Your Account</span>
             </div>
 
-            <h1 className="text-5xl font-extrabold leading-tight tracking-tight text-white">
+            <h1 className="text-5xl font-extrabold leading-tight tracking-tight text-primary-foreground">
               Start your journey with <span className="bg-gradient-to-r from-emerald-400 via-teal-400 to-sky-400 bg-clip-text text-transparent">ExamSolution</span>.
             </h1>
 
@@ -129,9 +129,9 @@ export default function Register() {
         </div>
 
         {/* Right Registration Form */}
-        <div className="lg:col-span-6 w-full rounded-3xl bg-slate-900/90 border border-white/10 p-8 sm:p-10 shadow-2xl backdrop-blur-xl">
+        <div className="lg:col-span-6 w-full rounded-3xl bg-slate-900/90 border border-border/10 p-8 sm:p-10 shadow-2xl backdrop-blur-xl">
           <div className="mb-6">
-            <h2 className="text-3xl font-bold text-white tracking-tight">Register</h2>
+            <h2 className="text-3xl font-bold text-primary-foreground tracking-tight">Register</h2>
             <p className="mt-1.5 text-sm text-slate-400">
               Select your role and enter your details to create an account.
             </p>
@@ -150,7 +150,7 @@ export default function Register() {
                   onClick={() => setRole(UserRole.Student)}
                   className={`flex items-center gap-3 p-3.5 rounded-xl border text-left transition duration-200 ${
                     role === UserRole.Student
-                      ? 'border-emerald-500 bg-emerald-500/10 text-white ring-1 ring-emerald-500'
+                      ? 'border-emerald-500 bg-emerald-500/10 text-primary-foreground ring-1 ring-emerald-500'
                       : 'border-slate-800 bg-slate-950/60 text-slate-400 hover:border-slate-700'
                   }`}
                 >
@@ -166,7 +166,7 @@ export default function Register() {
                   onClick={() => setRole(UserRole.Instructor)}
                   className={`flex items-center gap-3 p-3.5 rounded-xl border text-left transition duration-200 ${
                     role === UserRole.Instructor
-                      ? 'border-emerald-500 bg-emerald-500/10 text-white ring-1 ring-emerald-500'
+                      ? 'border-emerald-500 bg-emerald-500/10 text-primary-foreground ring-1 ring-emerald-500'
                       : 'border-slate-800 bg-slate-950/60 text-slate-400 hover:border-slate-700'
                   }`}
                 >

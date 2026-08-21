@@ -13,7 +13,7 @@ export default function AppLayout() {
   return (
     <div className="flex min-h-screen bg-gray-50">
       {/* SIDEBAR */}
-      <aside className="w-64 bg-white border-r p-4">
+      <aside className="w-64 bg-card border-r p-4">
         <h1 className="text-xl font-bold mb-6">Exam Platform</h1>
 
         <div className="space-y-2">
@@ -49,7 +49,7 @@ export default function AppLayout() {
       {/* MAIN AREA */}
       <div className="flex-1 flex flex-col">
         {/* TOP BAR */}
-        <header className="bg-white border-b p-4 flex justify-between">
+        <header className="bg-card border-b p-4 flex justify-between">
           <div className="font-semibold">Welcome, {user?.fullName}</div>
           <button onClick={logout} className="text-red-500">
             Logout

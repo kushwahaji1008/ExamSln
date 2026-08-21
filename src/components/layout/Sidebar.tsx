@@ -68,19 +68,19 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
 
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex w-72 flex-col border-r border-white/10 bg-slate-950/95 backdrop-blur-2xl transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 flex w-72 flex-col border-r border-border/10 bg-slate-950/95 backdrop-blur-2xl transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         {/* Logo Area */}
-        <div className="flex h-20 shrink-0 items-center justify-between px-6 border-b border-white/5">
-          <div className="flex items-center gap-3 text-white">
+        <div className="flex h-20 shrink-0 items-center justify-between px-6 border-b border-border/5">
+          <div className="flex items-center gap-3 text-primary-foreground">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-sky-500 shadow-lg shadow-sky-500/20">
-              <Sparkles className="h-4 w-4 text-white" />
+              <Sparkles className="h-4 w-4 text-primary-foreground" />
             </div>
             <span className="text-xl font-bold tracking-tight">ExamSolution</span>
           </div>
-          <button onClick={() => setIsOpen(false)} className="lg:hidden text-slate-400 hover:text-white">
+          <button onClick={() => setIsOpen(false)} className="lg:hidden text-slate-400 hover:text-primary-foreground">
             <X className="h-6 w-6" />
           </button>
         </div>
@@ -113,7 +113,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
         </nav>
 
         {/* Bottom Actions (Profile & Logout) */}
-        <div className="shrink-0 border-t border-white/5 p-4 space-y-1.5">
+        <div className="shrink-0 border-t border-border/5 p-4 space-y-1.5">
           <NavLink
             to="/profile"
             onClick={() => setIsOpen(false)}

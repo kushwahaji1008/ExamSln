@@ -12,7 +12,7 @@ export default function EditUser() {
     <div>
       <h1 className="text-xl font-bold">Edit User</h1>
       <input className="border p-2 w-full my-2" value={user.fullName || ''} onChange={e => setUser({ ...user, fullName: e.target.value })} />
-      <button className="bg-green-600 text-white p-2" onClick={save}>Save</button>
+      <button className="bg-green-600 text-primary-foreground p-2" onClick={save}>Save</button>
     </div>
   );
 }

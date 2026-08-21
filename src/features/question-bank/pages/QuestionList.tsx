@@ -39,7 +39,7 @@ export default function QuestionsList() {
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm text-slate-500">Create new questions and edit existing ones with ease.</p>
-        <Link className="inline-flex items-center justify-center rounded-full bg-indigo-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-indigo-500" to="/teacher/questions/create">
+        <Link className="inline-flex items-center justify-center rounded-full bg-indigo-600 px-5 py-3 text-sm font-semibold text-primary-foreground transition hover:bg-indigo-500" to="/teacher/questions/create">
           + Create Question
         </Link>
       </div>
@@ -55,7 +55,7 @@ export default function QuestionsList() {
       ) : (
         <div className="grid gap-6 xl:grid-cols-2">
           {questions.map((question) => (
-            <div key={question.id} className="group rounded-[2rem] border border-slate-200 bg-white p-6 shadow-lg transition hover:-translate-y-1 hover:shadow-indigo-100/40">
+            <div key={question.id} className="group rounded-[2rem] border border-slate-200 bg-card p-6 shadow-lg transition hover:-translate-y-1 hover:shadow-indigo-100/40">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <h2 className="text-xl font-semibold text-slate-900">{question.questionText || 'Untitled question'}</h2>

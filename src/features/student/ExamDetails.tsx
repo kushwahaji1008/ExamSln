@@ -20,38 +20,38 @@ export default function ExamDetails() {
     <div className="mx-auto max-w-4xl space-y-8 p-4 sm:p-6 lg:p-8 font-sans text-slate-100">
       <button 
         onClick={() => navigate(-1)}
-        className="flex items-center gap-2 text-sm font-medium text-slate-400 hover:text-white transition"
+        className="flex items-center gap-2 text-sm font-medium text-slate-400 hover:text-primary-foreground transition"
       >
         <ChevronLeft className="h-4 w-4" /> Back to Exams
       </button>
 
-      <div className="rounded-3xl border border-white/10 bg-slate-900/80 p-8 backdrop-blur-xl shadow-2xl">
-        <div className="mb-8 border-b border-white/10 pb-8">
-          <h1 className="text-3xl font-extrabold text-white mb-4">{exam.title}</h1>
+      <div className="rounded-3xl border border-border/10 bg-slate-900/80 p-8 backdrop-blur-xl shadow-2xl">
+        <div className="mb-8 border-b border-border/10 pb-8">
+          <h1 className="text-3xl font-extrabold text-primary-foreground mb-4">{exam.title}</h1>
           <p className="text-slate-400 text-base leading-relaxed max-w-2xl">{exam.description}</p>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-3 mb-10">
-          <div className="rounded-2xl bg-slate-950/50 p-5 border border-white/5">
+          <div className="rounded-2xl bg-slate-950/50 p-5 border border-border/5">
             <div className="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-1">Duration</div>
-            <div className="text-2xl font-bold text-white flex items-center gap-2">
+            <div className="text-2xl font-bold text-primary-foreground flex items-center gap-2">
               <Clock className="h-5 w-5 text-sky-400" /> {exam.durationMinutes} min
             </div>
           </div>
-          <div className="rounded-2xl bg-slate-950/50 p-5 border border-white/5">
+          <div className="rounded-2xl bg-slate-950/50 p-5 border border-border/5">
             <div className="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-1">Total Marks</div>
-            <div className="text-2xl font-bold text-white flex items-center gap-2">
+            <div className="text-2xl font-bold text-primary-foreground flex items-center gap-2">
               <CheckCircle2 className="h-5 w-5 text-emerald-400" /> {exam.totalMarks}
             </div>
           </div>
-          <div className="rounded-2xl bg-slate-950/50 p-5 border border-white/5">
+          <div className="rounded-2xl bg-slate-950/50 p-5 border border-border/5">
             <div className="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-1">Passing Marks</div>
-            <div className="text-2xl font-bold text-white">{exam.passingMarks}</div>
+            <div className="text-2xl font-bold text-primary-foreground">{exam.passingMarks}</div>
           </div>
         </div>
 
         <div className="space-y-4 mb-10">
-          <h3 className="text-lg font-bold text-white">Instructions & Rules</h3>
+          <h3 className="text-lg font-bold text-primary-foreground">Instructions & Rules</h3>
           <ul className="space-y-3 text-sm text-slate-300">
             <li className="flex items-start gap-3">
               <div className="mt-0.5 h-1.5 w-1.5 rounded-full bg-sky-500 shrink-0" />
@@ -72,7 +72,7 @@ export default function ExamDetails() {
 
         <button 
           onClick={() => navigate(`/student/exam/${examId}/attempt`)}
-          className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl bg-sky-500 px-8 py-4 text-base font-bold text-white transition hover:bg-sky-400 shadow-lg shadow-sky-500/25"
+          className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl bg-sky-500 px-8 py-4 text-base font-bold text-primary-foreground transition hover:bg-sky-400 shadow-lg shadow-sky-500/25"
         >
           <PlayCircle className="h-5 w-5" /> Start Assessment Now
         </button>

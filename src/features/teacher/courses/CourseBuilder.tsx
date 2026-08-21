@@ -143,7 +143,7 @@ export default function CourseBuilder() {
         <div className="lg:col-span-8 space-y-6">
           
           {course.modules.length === 0 && !isAddingModule && (
-            <div className="text-center py-12 border-2 border-dashed border-slate-200 rounded-[2rem] bg-white">
+            <div className="text-center py-12 border-2 border-dashed border-slate-200 rounded-[2rem] bg-card">
               <BookOpen className="w-12 h-12 mx-auto mb-3 text-slate-300" />
               <h3 className="text-lg font-bold text-slate-900 mb-1">Curriculum is empty</h3>
               <p className="text-slate-500 mb-4">Start by adding your first chapter or module.</p>
@@ -151,7 +151,7 @@ export default function CourseBuilder() {
           )}
 
           {course.modules.map((mod, index) => (
-            <div key={mod.id || index} className="rounded-[2rem] border border-slate-200 bg-white shadow-sm overflow-hidden">
+            <div key={mod.id || index} className="rounded-[2rem] border border-slate-200 bg-card shadow-sm overflow-hidden">
               
               {/* Module Header */}
               <div className="bg-slate-50 p-4 border-b border-slate-200 flex items-center gap-3">
@@ -169,7 +169,7 @@ export default function CourseBuilder() {
                 )}
 
                 {mod.materials?.map((mat, i) => (
-                  <div key={mat.id || i} className="flex items-center gap-3 p-3 rounded-xl border border-slate-100 bg-white hover:border-slate-300 transition group">
+                  <div key={mat.id || i} className="flex items-center gap-3 p-3 rounded-xl border border-slate-100 bg-card hover:border-slate-300 transition group">
                     <GripVertical className="w-4 h-4 text-slate-300" />
                     {mat.type === 'Video' ? <PlayCircle className="w-5 h-5 text-indigo-500" /> : <BookOpen className="w-5 h-5 text-sky-500" />}
                     <span className="text-sm font-medium text-slate-700 flex-1">{mat.title}</span>
@@ -200,19 +200,19 @@ export default function CourseBuilder() {
                 placeholder="e.g., Chapter 1: Introduction" 
                 value={newModuleTitle}
                 onChange={(e) => setNewModuleTitle(e.target.value)}
-                className="w-full rounded-xl border border-indigo-200 bg-white px-4 py-3 text-sm outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 mb-4"
+                className="w-full rounded-xl border border-indigo-200 bg-card px-4 py-3 text-sm outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 mb-4"
               />
               <div className="flex gap-3">
                 <button 
                   onClick={handleAddModule}
                   disabled={isSaving || !newModuleTitle.trim()}
-                  className="px-6 py-2 bg-indigo-600 text-white text-sm font-bold rounded-xl hover:bg-indigo-500 disabled:opacity-50 flex items-center gap-2"
+                  className="px-6 py-2 bg-indigo-600 text-primary-foreground text-sm font-bold rounded-xl hover:bg-indigo-500 disabled:opacity-50 flex items-center gap-2"
                 >
                   {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Save Chapter'}
                 </button>
                 <button 
                   onClick={() => setIsAddingModule(false)}
-                  className="px-6 py-2 bg-white text-slate-600 text-sm font-bold rounded-xl border border-slate-200 hover:bg-slate-50"
+                  className="px-6 py-2 bg-card text-slate-600 text-sm font-bold rounded-xl border border-slate-200 hover:bg-slate-50"
                 >
                   Cancel
                 </button>
@@ -231,7 +231,7 @@ export default function CourseBuilder() {
 
         {/* --- RIGHT SIDE: PUBLISH ACTIONS --- */}
         <div className="lg:col-span-4 space-y-6">
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sticky top-8">
+          <div className="rounded-[2rem] border border-slate-200 bg-card p-6 shadow-sm sticky top-8">
             <h3 className="text-lg font-bold text-slate-900 border-b border-slate-100 pb-4 mb-4">Course Status</h3>
             
             {course.status === 1 ? (
@@ -249,7 +249,7 @@ export default function CourseBuilder() {
             <button 
               onClick={handlePublish}
               disabled={isSaving || course.status === 1}
-              className="w-full py-3 rounded-xl bg-emerald-500 text-white font-bold text-sm hover:bg-emerald-400 transition shadow-lg shadow-emerald-500/20 mb-3 disabled:opacity-50 disabled:shadow-none flex justify-center items-center gap-2"
+              className="w-full py-3 rounded-xl bg-emerald-500 text-primary-foreground font-bold text-sm hover:bg-emerald-400 transition shadow-lg shadow-emerald-500/20 mb-3 disabled:opacity-50 disabled:shadow-none flex justify-center items-center gap-2"
             >
               {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : (course.status === 1 ? 'Already Published' : 'Publish Course')}
             </button>

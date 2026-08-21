@@ -31,8 +31,8 @@ export default function StudentExams() {
         setError(null);
         // Toggle endpoint based on tab
         const endpoint = activeTab === 'my-exams' 
-          ? '/api/exams' // Backend route for registered/upcoming exams for this student
-          : '/api/exams';         // Backend route for all published exams
+          ? '/exams' // Backend route for registered/upcoming exams for this student
+          : '/exams';         // Backend route for all published exams
           
         const response = await apiClient.get(endpoint);
         setExams(response.data);
@@ -51,7 +51,7 @@ export default function StudentExams() {
     try {
       setRegisteringId(examId);
       // Backend route to register for an exam
-      await apiClient.post(`/api/exams/${examId}/register`);
+      await apiClient.post(`/exams/${examId}/register`);
       alert("Successfully registered for exam!");
       setActiveTab('my-exams'); // Switch tab to show it
     } catch (err: any) {
@@ -76,13 +76,13 @@ export default function StudentExams() {
       <div className="flex p-1 bg-slate-200/50 rounded-2xl w-fit mb-6">
         <button 
           onClick={() => setActiveTab('my-exams')}
-          className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${activeTab === 'my-exams' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+          className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${activeTab === 'my-exams' ? 'bg-card text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
         >
           My Exams
         </button>
         <button 
           onClick={() => setActiveTab('available')}
-          className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${activeTab === 'available' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+          className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${activeTab === 'available' ? 'bg-card text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
         >
           Available Exams
         </button>
@@ -102,7 +102,7 @@ export default function StudentExams() {
       )}
 
       {!loading && !error && exams.length === 0 && (
-        <div className="text-center py-20 bg-white border border-slate-200 rounded-[2rem] text-slate-500">
+        <div className="text-center py-20 bg-card border border-slate-200 rounded-[2rem] text-slate-500">
           <Target className="w-12 h-12 mx-auto mb-3 text-slate-300" />
           <h3 className="text-lg font-bold text-slate-900 mb-2">No exams found</h3>
           {activeTab === 'my-exams' ? (
@@ -120,8 +120,8 @@ export default function StudentExams() {
           {exams.map(exam => (
             <div key={exam.id} className={
               activeTab === 'my-exams' 
-                ? "flex flex-col sm:flex-row items-start sm:items-center justify-between p-6 bg-white border border-slate-200 rounded-[1.5rem] shadow-sm hover:shadow-md transition"
-                : "flex flex-col bg-white border border-slate-200 rounded-[2rem] p-6 shadow-sm hover:-translate-y-1 transition duration-300"
+                ? "flex flex-col sm:flex-row items-start sm:items-center justify-between p-6 bg-card border border-slate-200 rounded-[1.5rem] shadow-sm hover:shadow-md transition"
+                : "flex flex-col bg-card border border-slate-200 rounded-[2rem] p-6 shadow-sm hover:-translate-y-1 transition duration-300"
             }>
               
               <div className={activeTab === 'available' ? "flex-1 mb-6" : ""}>
@@ -149,14 +149,14 @@ export default function StudentExams() {
 
               <div className={activeTab === 'available' ? "w-full" : "mt-4 sm:mt-0"}>
                 {activeTab === 'my-exams' ? (
-                  <Link to={`/student/exams/${exam.id}`} className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-xl text-sm font-bold transition shadow-lg shadow-indigo-500/20 whitespace-nowrap">
+                  <Link to={`/student/exams/${exam.id}`} className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-primary-foreground px-5 py-2.5 rounded-xl text-sm font-bold transition shadow-lg shadow-indigo-500/20 whitespace-nowrap">
                     Enter Lobby <ArrowRight className="w-4 h-4" />
                   </Link>
                 ) : (
                   <button 
                     onClick={() => handleRegister(exam.id)}
                     disabled={registeringId === exam.id}
-                    className="w-full text-center bg-slate-900 hover:bg-slate-800 text-white py-3 rounded-xl text-sm font-bold transition disabled:opacity-50 flex items-center justify-center gap-2"
+                    className="w-full text-center bg-slate-900 hover:bg-slate-800 text-primary-foreground py-3 rounded-xl text-sm font-bold transition disabled:opacity-50 flex items-center justify-center gap-2"
                   >
                     {registeringId === exam.id ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Register Now'}
                   </button>

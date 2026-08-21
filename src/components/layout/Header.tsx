@@ -21,12 +21,12 @@ export default function Header({ setSidebarOpen }: HeaderProps) {
     : 'U';
 
   return (
-    <header className="sticky top-0 z-30 flex h-20 shrink-0 items-center justify-between border-b border-white/5 bg-slate-950/80 px-4 sm:px-6 lg:px-8 backdrop-blur-xl">
+    <header className="sticky top-0 z-30 flex h-20 shrink-0 items-center justify-between border-b border-border/5 bg-slate-950/80 px-4 sm:px-6 lg:px-8 backdrop-blur-xl">
       <div className="flex items-center gap-4">
         {/* Mobile Menu Toggle */}
         <button
           onClick={() => setSidebarOpen(true)}
-          className="rounded-lg p-2 text-slate-400 transition hover:bg-slate-900 hover:text-white lg:hidden"
+          className="rounded-lg p-2 text-slate-400 transition hover:bg-slate-900 hover:text-primary-foreground lg:hidden"
         >
           <Menu className="h-6 w-6" />
         </button>
@@ -46,7 +46,7 @@ export default function Header({ setSidebarOpen }: HeaderProps) {
         {/* Notifications */}
         <Link 
           to="/notifications" 
-          className="relative rounded-full p-2 text-slate-400 transition hover:bg-slate-900 hover:text-white"
+          className="relative rounded-full p-2 text-slate-400 transition hover:bg-slate-900 hover:text-primary-foreground"
         >
           <Bell className="h-5 w-5" />
           <span className="absolute right-1.5 top-1.5 flex h-2 w-2 rounded-full bg-rose-500" />
@@ -57,12 +57,12 @@ export default function Header({ setSidebarOpen }: HeaderProps) {
         {/* Profile Avatar & Name */}
         <Link to="/profile" className="flex items-center gap-3 transition hover:opacity-80">
           <div className="hidden flex-col items-end sm:flex">
-            <span className="text-sm font-bold text-white leading-none">{user?.fullName}</span>
+            <span className="text-sm font-bold text-primary-foreground leading-none">{user?.fullName}</span>
             <span className="text-xs font-medium text-slate-500 mt-1 capitalize">
               Role: {user?.role === 0 ? 'Student' : user?.role === 1 ? 'Teacher' : 'Admin'}
             </span>
           </div>
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-indigo-600 text-sm font-bold text-white shadow-lg shadow-sky-500/20">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-indigo-600 text-sm font-bold text-primary-foreground shadow-lg shadow-sky-500/20">
             {initials}
           </div>
         </Link>

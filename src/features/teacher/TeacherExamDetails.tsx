@@ -63,7 +63,7 @@ export default function TeacherExamDetails() {
           <h1 className="text-2xl font-bold">{exam.title || 'Exam Details'}</h1>
           <div className="text-sm text-gray-600">Duration: {exam.durationMinutes || 'N/A'} minutes</div>
         </div>
-        <button className="bg-indigo-600 text-white px-4 py-2 rounded" onClick={edit}>
+        <button className="bg-indigo-600 text-primary-foreground px-4 py-2 rounded" onClick={edit}>
           Edit
         </button>
       </div>
@@ -76,21 +76,21 @@ export default function TeacherExamDetails() {
 
       <div className="grid gap-3 md:grid-cols-3">
         <button
-          className="bg-blue-600 text-white px-4 py-2 rounded"
+          className="bg-blue-600 text-primary-foreground px-4 py-2 rounded"
           onClick={schedule}
           disabled={loading}
         >
           Schedule
         </button>
         <button
-          className="bg-yellow-500 text-white px-4 py-2 rounded"
+          className="bg-yellow-500 text-primary-foreground px-4 py-2 rounded"
           onClick={activate}
           disabled={loading}
         >
           Activate
         </button>
         <button
-          className="bg-gray-700 text-white px-4 py-2 rounded"
+          className="bg-gray-700 text-primary-foreground px-4 py-2 rounded"
           onClick={complete}
           disabled={loading}
         >

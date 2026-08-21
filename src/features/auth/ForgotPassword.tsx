@@ -28,13 +28,13 @@ export default function ForgotPassword() {
 
   return (
     <div className="min-h-screen w-full bg-slate-950 text-slate-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-md rounded-3xl bg-slate-900/90 border border-white/10 p-8 shadow-2xl backdrop-blur-xl">
+      <div className="w-full max-w-md rounded-3xl bg-slate-900/90 border border-border/10 p-8 shadow-2xl backdrop-blur-xl">
         
         <Link to="/login" className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-sky-400 transition mb-6">
           <ArrowLeft className="w-4 h-4" /> Back to login
         </Link>
 
-        <h2 className="text-3xl font-bold text-white tracking-tight mb-2">Forgot Password</h2>
+        <h2 className="text-3xl font-bold text-primary-foreground tracking-tight mb-2">Forgot Password</h2>
         <p className="text-sm text-slate-400 mb-8">
           Enter your registered email address and we'll send you an OTP to reset your password.
         </p>
@@ -67,7 +67,7 @@ export default function ForgotPassword() {
           <button
             type="submit"
             disabled={loading || !email}
-            className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-sky-500 py-3.5 px-6 text-sm font-semibold text-white shadow-lg transition-all hover:bg-sky-400 disabled:opacity-50"
+            className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-sky-500 py-3.5 px-6 text-sm font-semibold text-primary-foreground shadow-lg transition-all hover:bg-sky-400 disabled:opacity-50"
           >
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <span>Send Reset OTP</span>}
             {!loading && <ArrowRight className="w-4 h-4" />}

@@ -10,13 +10,13 @@ export default function LiveClasses() {
   return (
     <div className="mx-auto max-w-7xl space-y-8 p-4 sm:p-6 lg:p-8 font-sans text-slate-100">
       <div>
-        <h1 className="text-3xl font-extrabold tracking-tight text-white">Live Classes</h1>
+        <h1 className="text-3xl font-extrabold tracking-tight text-primary-foreground">Live Classes</h1>
         <p className="mt-2 text-sm text-slate-400">Join interactive sessions and expert-led webinars.</p>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
         {liveClasses.map((session) => (
-          <div key={session.id} className="flex flex-col sm:flex-row gap-6 rounded-3xl border border-white/10 bg-slate-900/80 p-6 backdrop-blur-xl">
+          <div key={session.id} className="flex flex-col sm:flex-row gap-6 rounded-3xl border border-border/10 bg-slate-900/80 p-6 backdrop-blur-xl">
             <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-indigo-500/10 border border-indigo-500/20">
               <Video className="h-8 w-8 text-indigo-400" />
             </div>
@@ -34,7 +34,7 @@ export default function LiveClasses() {
                     </span>
                   )}
                 </div>
-                <h3 className="text-xl font-bold text-white">{session.title}</h3>
+                <h3 className="text-xl font-bold text-primary-foreground">{session.title}</h3>
               </div>
 
               <div className="grid grid-cols-2 gap-4 text-sm text-slate-400">
@@ -46,7 +46,7 @@ export default function LiveClasses() {
                 disabled={session.status !== 'live'}
                 className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-6 py-2.5 text-sm font-semibold transition ${
                   session.status === 'live' 
-                    ? 'bg-indigo-500 text-white hover:bg-indigo-400 shadow-lg shadow-indigo-500/20'
+                    ? 'bg-indigo-500 text-primary-foreground hover:bg-indigo-400 shadow-lg shadow-indigo-500/20'
                     : 'bg-slate-800 text-slate-500 cursor-not-allowed'
                 }`}
               >

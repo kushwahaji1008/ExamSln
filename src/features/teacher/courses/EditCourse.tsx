@@ -17,7 +17,7 @@ export default function EditCourse() {
     <div className="space-y-8 max-w-4xl mx-auto font-sans pb-12">
       <PageHeader title="Course Settings" subtitle="Update basic details and visibility." />
 
-      <form className="rounded-[2rem] border border-slate-200 bg-white p-6 sm:p-10 shadow-sm space-y-8">
+      <form className="rounded-[2rem] border border-slate-200 bg-card p-6 sm:p-10 shadow-sm space-y-8">
         
         <div className="space-y-4">
           <div className="space-y-2">
@@ -44,13 +44,13 @@ export default function EditCourse() {
           </div>
           <label className="relative inline-flex items-center cursor-pointer">
             <input type="checkbox" checked={formData.isPublished} onChange={(e) => setFormData({...formData, isPublished: e.target.checked})} className="sr-only peer" />
-            <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
+            <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-border after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-card after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
           </label>
         </div>
 
         <div className="flex justify-end gap-4 border-t border-slate-100 pt-6">
           <Link to="/teacher/courses" className="px-6 py-3 text-sm font-bold text-slate-500 hover:bg-slate-50 rounded-full transition">Cancel</Link>
-          <button type="button" onClick={() => navigate('/teacher/courses')} className="flex items-center gap-2 px-8 py-3 bg-indigo-600 text-white rounded-full text-sm font-bold hover:bg-indigo-500 shadow-lg shadow-indigo-500/30 transition">
+          <button type="button" onClick={() => navigate('/teacher/courses')} className="flex items-center gap-2 px-8 py-3 bg-indigo-600 text-primary-foreground rounded-full text-sm font-bold hover:bg-indigo-500 shadow-lg shadow-indigo-500/30 transition">
             <Save className="w-4 h-4" /> Update Course
           </button>
         </div>

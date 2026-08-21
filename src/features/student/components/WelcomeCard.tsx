@@ -13,12 +13,12 @@ export default function WelcomeCard({ userName }: WelcomeCardProps) {
   });
 
   return (
-    <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-sky-500 via-indigo-600 to-violet-700 p-8 text-white shadow-2xl shadow-sky-500/20">
-      <div className="absolute inset-x-0 top-0 h-40 bg-white/10 blur-3xl pointer-events-none" />
+    <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-sky-500 via-indigo-600 to-violet-700 p-8 text-primary-foreground shadow-2xl shadow-sky-500/20">
+      <div className="absolute inset-x-0 top-0 h-40 bg-card/10 blur-3xl pointer-events-none" />
       
       <div className="relative z-10 flex flex-col justify-between h-full space-y-6">
         <div className="flex items-center justify-between">
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider shadow-sm shadow-white/5 backdrop-blur-md">
+          <div className="inline-flex items-center gap-2 rounded-full bg-card/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider shadow-sm shadow-border/5 backdrop-blur-md">
             <Sparkles className="h-3.5 w-3.5" />
             <span>Student Portal</span>
           </div>

@@ -27,10 +27,10 @@ export default function MyCourses() {
     const fetchMyCourses = async () => {
       try {
         setLoading(true);
-        // Change to '/api/videos/courses' if you didn't rename your backend route yet
-        const response = await apiClient.get('/api/videos/courses'); 
+        // Change to '/videos/courses' if you didn't rename your backend route yet
+        const response = await apiClient.get('/videos/courses'); 
         
-        // If your backend returns all courses, you might need a specific endpoint like '/api/courses/teacher/me' 
+        // If your backend returns all courses, you might need a specific endpoint like '/courses/teacher/me' 
         // For now, assuming the backend filters by the logged-in user's token
         setCourses(response.data);
         setError(null);
@@ -54,7 +54,7 @@ export default function MyCourses() {
     if (!window.confirm("Are you sure you want to delete this course?")) return;
     
     try {
-      await apiClient.delete(`/api/videos/courses/${courseId}`);
+      await apiClient.delete(`/videos/courses/${courseId}`);
       // Remove from UI after successful deletion
       setCourses(courses.filter(c => c.id !== courseId));
     } catch (err) {
@@ -74,10 +74,10 @@ export default function MyCourses() {
             placeholder="Search courses..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-full border border-slate-200 bg-white pl-11 pr-4 py-3 text-sm text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-sm"
+            className="w-full rounded-full border border-slate-200 bg-card pl-11 pr-4 py-3 text-sm text-slate-700 outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-sm"
           />
         </div>
-        <Link className="inline-flex items-center justify-center gap-2 rounded-full bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/30 transition hover:bg-indigo-500" to="/teacher/courses/create">
+        <Link className="inline-flex items-center justify-center gap-2 rounded-full bg-indigo-600 px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-indigo-500/30 transition hover:bg-indigo-500" to="/teacher/courses/create">
           <Plus className="w-4 h-4" /> New Course
         </Link>
       </div>
@@ -100,7 +100,7 @@ export default function MyCourses() {
 
       {/* Empty State */}
       {!loading && !error && filteredCourses.length === 0 && (
-        <div className="text-center py-20 border-2 border-dashed border-slate-200 rounded-[2rem] bg-white">
+        <div className="text-center py-20 border-2 border-dashed border-slate-200 rounded-[2rem] bg-card">
           <BookOpen className="w-12 h-12 mx-auto mb-3 text-slate-300" />
           <h3 className="text-lg font-bold text-slate-900 mb-1">No courses yet</h3>
           <p className="text-slate-500 mb-6">Create your first course to start building your curriculum.</p>
@@ -114,7 +114,7 @@ export default function MyCourses() {
       {!loading && !error && filteredCourses.length > 0 && (
         <div className="grid gap-6 xl:grid-cols-3 sm:grid-cols-2">
           {filteredCourses.map((course) => (
-            <div key={course.id} className="group flex flex-col rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-100">
+            <div key={course.id} className="group flex flex-col rounded-[2rem] border border-slate-200 bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-100">
               <div className="w-full h-32 bg-slate-100 rounded-2xl mb-4 flex items-center justify-center border border-slate-200/50">
                 <PlayCircle className="w-10 h-10 text-slate-300" />
               </div>

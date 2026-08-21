@@ -8,7 +8,7 @@ export default function PageHeader({
   subtitle,
 }: PageHeaderProps) {
   return (
-    <section className="mb-8 rounded-[2rem] border border-slate-200/80 bg-white/90 p-6 shadow-lg shadow-slate-900/5 backdrop-blur-xl">
+    <section className="mb-8 rounded-[2rem] border border-slate-200/80 bg-card/90 p-6 shadow-lg shadow-slate-900/5 backdrop-blur-xl">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-sm uppercase tracking-[0.28em] text-slate-500">Overview</p>

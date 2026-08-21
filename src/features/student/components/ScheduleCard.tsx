@@ -16,9 +16,9 @@ interface ScheduleCardProps {
 
 export default function ScheduleCard({ events = [], dateString = 'Today' }: ScheduleCardProps) {
   return (
-    <div className="rounded-3xl border border-white/10 bg-slate-900/80 p-6 backdrop-blur-xl h-full flex flex-col">
+    <div className="rounded-3xl border border-border/10 bg-slate-900/80 p-6 backdrop-blur-xl h-full flex flex-col">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-lg font-bold text-white flex items-center gap-2">
+        <h2 className="text-lg font-bold text-primary-foreground flex items-center gap-2">
           <CalendarIcon className="h-5 w-5 text-indigo-400" />
           Schedule
         </h2>
@@ -40,7 +40,7 @@ export default function ScheduleCard({ events = [], dateString = 'Today' }: Sche
           {events.map((event) => (
             <div 
               key={event.id}
-              className="flex items-start gap-4 rounded-2xl bg-slate-950/60 p-4 border border-white/5 transition hover:bg-slate-800"
+              className="flex items-start gap-4 rounded-2xl bg-slate-950/60 p-4 border border-border/5 transition hover:bg-slate-800"
             >
               <div className="flex flex-col items-center justify-center pt-0.5">
                 <span className="text-xs font-bold text-slate-300">{event.time.split(' ')[0]}</span>

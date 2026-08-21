@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import PageHeader from '@/components/ui/PageHeader';
 import { Search, PlayCircle, BookOpen, Clock, Star, Loader2, AlertCircle, CheckCircle2 } from 'lucide-react';
-import  apiClient  from '@/services/api/client';
+import apiClient from '@/services/api/client';
 
 interface Course {
   id: string;
@@ -33,8 +33,8 @@ export default function StudentCourses() {
         setError(null);
         // Toggle endpoint based on tab
         const endpoint = activeTab === 'enrolled' 
-          ? '/api/videos/courses' // Your backend route for student's enrolled courses
-          : '/api/courses';         // Your backend route for all available courses
+          ? '/videos/courses' // Your backend route for student's enrolled courses
+          : '/courses';       // Your backend route for all available courses
           
         const response = await apiClient.get(endpoint);
         setCourses(response.data);
@@ -54,7 +54,7 @@ export default function StudentCourses() {
     try {
       setEnrollingId(courseId);
       // Your backend route to enroll a student in a course
-      await apiClient.post(`/api/videos/courses/${courseId}`);
+      await apiClient.post(`/videos/courses/${courseId}`);
       alert("Successfully enrolled!");
       navigate(`/student/courses/${courseId}`); // Go straight to the course!
     } catch (err: any) {
@@ -77,13 +77,13 @@ export default function StudentCourses() {
         <div className="flex p-1 bg-slate-200/50 rounded-2xl w-fit">
           <button 
             onClick={() => setActiveTab('enrolled')}
-            className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${activeTab === 'enrolled' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+            className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${activeTab === 'enrolled' ? 'bg-slate-100 text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
           >
             My Courses
           </button>
           <button 
             onClick={() => setActiveTab('all')}
-            className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${activeTab === 'all' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+            className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${activeTab === 'all' ? 'bg-slate-100 text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
           >
             Browse Catalog
           </button>
@@ -93,7 +93,7 @@ export default function StudentCourses() {
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <input
             type="text" placeholder="Search courses..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-full border border-slate-200 bg-white pl-11 pr-4 py-2.5 text-sm outline-none transition focus:border-indigo-500"
+            className="w-full rounded-full border border-slate-200 bg-slate-50 pl-11 pr-4 py-2.5 text-sm outline-none transition focus:border-indigo-500"
           />
         </div>
       </div>
@@ -112,7 +112,7 @@ export default function StudentCourses() {
       )}
 
       {!loading && !error && filteredCourses.length === 0 && (
-        <div className="text-center py-20 text-slate-500 bg-white border border-slate-200 rounded-[2rem]">
+        <div className="text-center py-20 text-slate-500 bg-slate-50 border border-slate-200 rounded-[2rem]">
           <BookOpen className="w-12 h-12 mx-auto mb-3 text-slate-300" />
           <h3 className="text-lg font-bold text-slate-900 mb-2">No courses found</h3>
           {activeTab === 'enrolled' ? (
@@ -127,7 +127,7 @@ export default function StudentCourses() {
       {!loading && !error && filteredCourses.length > 0 && (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filteredCourses.map((course) => (
-            <div key={course.id} className="group flex flex-col rounded-[2rem] border border-slate-200 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-100">
+            <div key={course.id} className="group flex flex-col rounded-[2rem] border border-slate-200 bg-slate-50 p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-100">
               <div className="w-full h-40 bg-slate-100 rounded-2xl mb-5 flex items-center justify-center border border-slate-200/50">
                 <PlayCircle className="w-12 h-12 text-slate-300 group-hover:text-indigo-400 transition" />
               </div>
@@ -150,7 +150,7 @@ export default function StudentCourses() {
                     <button 
                       onClick={() => handleEnroll(course.id)}
                       disabled={enrollingId === course.id}
-                      className="w-full flex items-center justify-center gap-2 bg-slate-900 text-white hover:bg-slate-800 py-2.5 rounded-xl text-sm font-bold transition disabled:opacity-50"
+                      className="w-full flex items-center justify-center gap-2 bg-slate-900 text-primary-foreground hover:bg-slate-800 py-2.5 rounded-xl text-sm font-bold transition disabled:opacity-50"
                     >
                       {enrollingId === course.id ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Enroll Now'}
                     </button>

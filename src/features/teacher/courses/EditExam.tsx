@@ -28,7 +28,7 @@ export default function EditExam() {
     <div className="space-y-8 max-w-4xl mx-auto font-sans pb-12">
       <PageHeader title="Edit Exam Settings" subtitle="Modify duration, scoring, and instructions." />
 
-      <form onSubmit={handleSubmit} className="rounded-[2rem] border border-slate-200 bg-white p-6 sm:p-10 shadow-sm space-y-8">
+      <form onSubmit={handleSubmit} className="rounded-[2rem] border border-slate-200 bg-card p-6 sm:p-10 shadow-sm space-y-8">
         
         <div className="space-y-5">
           <h3 className="text-lg font-bold text-slate-900 border-b border-slate-100 pb-2">Basic Information</h3>
@@ -77,7 +77,7 @@ export default function EditExam() {
 
         <div className="flex justify-end gap-4 border-t border-slate-100 pt-6">
           <Link to="/teacher/exams" className="px-6 py-3 text-sm font-bold text-slate-500 hover:bg-slate-50 rounded-full transition">Cancel</Link>
-          <button type="submit" className="flex items-center gap-2 px-8 py-3 bg-indigo-600 text-white rounded-full text-sm font-bold hover:bg-indigo-500 shadow-lg shadow-indigo-500/30 transition">
+          <button type="submit" className="flex items-center gap-2 px-8 py-3 bg-indigo-600 text-primary-foreground rounded-full text-sm font-bold hover:bg-indigo-500 shadow-lg shadow-indigo-500/30 transition">
             <Save className="w-4 h-4" /> Save Changes
           </button>
         </div>

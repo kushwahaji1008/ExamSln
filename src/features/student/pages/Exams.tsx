@@ -18,19 +18,19 @@ export default function Exams() {
   return (
     <div className="mx-auto max-w-7xl space-y-8 p-4 sm:p-6 lg:p-8 font-sans text-slate-100">
       <div>
-        <h1 className="text-3xl font-extrabold tracking-tight text-white">My Exams</h1>
+        <h1 className="text-3xl font-extrabold tracking-tight text-primary-foreground">My Exams</h1>
         <p className="mt-2 text-sm text-slate-400">Manage your upcoming assessments and view past attempt records.</p>
       </div>
 
       {/* Tabs */}
-      <div className="flex space-x-1 rounded-xl bg-slate-900/50 p-1 border border-white/5 w-fit">
+      <div className="flex space-x-1 rounded-xl bg-slate-900/50 p-1 border border-border/5 w-fit">
         {['upcoming', 'active', 'past'].map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab as any)}
             className={`capitalize rounded-lg px-6 py-2 text-sm font-semibold transition-all ${
               activeTab === tab
-                ? 'bg-sky-500 text-white shadow-md shadow-sky-500/20'
+                ? 'bg-sky-500 text-primary-foreground shadow-md shadow-sky-500/20'
                 : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
             }`}
           >
@@ -47,7 +47,7 @@ export default function Exams() {
           </div>
         ) : (
           filteredExams.map((exam) => (
-            <div key={exam.id} className="flex flex-col justify-between rounded-3xl border border-white/10 bg-slate-900/80 p-6 backdrop-blur-xl transition hover:border-sky-500/30">
+            <div key={exam.id} className="flex flex-col justify-between rounded-3xl border border-border/10 bg-slate-900/80 p-6 backdrop-blur-xl transition hover:border-sky-500/30">
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/10 text-sky-400 border border-sky-500/20">
@@ -59,7 +59,7 @@ export default function Exams() {
                     </span>
                   )}
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2">{exam.title}</h3>
+                <h3 className="text-lg font-bold text-primary-foreground mb-2">{exam.title}</h3>
                 
                 <div className="space-y-2 mt-4">
                   <div className="flex items-center gap-2 text-sm text-slate-400">
@@ -73,9 +73,9 @@ export default function Exams() {
                 </div>
               </div>
 
-              <div className="mt-6 pt-6 border-t border-white/5">
+              <div className="mt-6 pt-6 border-t border-border/5">
                 {exam.status === 'active' ? (
-                  <button onClick={() => navigate(`/student/exam/${exam.id}/start`)} className="w-full flex items-center justify-center gap-2 rounded-xl bg-sky-500 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-400">
+                  <button onClick={() => navigate(`/student/exam/${exam.id}/start`)} className="w-full flex items-center justify-center gap-2 rounded-xl bg-sky-500 py-2.5 text-sm font-semibold text-primary-foreground transition hover:bg-sky-400">
                     <PlayCircle className="h-4 w-4" /> Start Attempt
                   </button>
                 ) : exam.status === 'upcoming' ? (
@@ -83,7 +83,7 @@ export default function Exams() {
                     <Clock className="h-4 w-4" /> Starts Soon
                   </button>
                 ) : (
-                  <button onClick={() => navigate(`/student/results/${exam.id}`)} className="w-full flex items-center justify-center gap-2 rounded-xl bg-slate-800 py-2.5 text-sm font-semibold text-slate-200 transition hover:bg-slate-700 border border-white/5">
+                  <button onClick={() => navigate(`/student/results/${exam.id}`)} className="w-full flex items-center justify-center gap-2 rounded-xl bg-slate-800 py-2.5 text-sm font-semibold text-slate-200 transition hover:bg-slate-700 border border-border/5">
                     <CheckCircle2 className="h-4 w-4 text-emerald-400" /> View Result ({exam.score}%)
                   </button>
                 )}

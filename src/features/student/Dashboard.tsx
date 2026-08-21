@@ -111,7 +111,7 @@ export default function Dashboard() {
       </div>
 
       {/* Bottom Row: Discovery */}
-      <div className="pt-6 border-t border-white/5">
+      <div className="pt-6 border-t border-border/5">
         <RecommendedCourses courses={dashboardData?.recommended} />
       </div>
       

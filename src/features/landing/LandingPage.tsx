@@ -64,7 +64,7 @@ export default function LandingPage() {
         <div className="relative mx-auto max-w-7xl px-6 py-24 sm:px-10 lg:px-16">
           <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
             <div className="space-y-8">
-              <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm text-slate-100 ring-1 ring-white/10 backdrop-blur-md">
+              <div className="inline-flex items-center gap-2 rounded-full bg-card/10 px-4 py-2 text-sm text-slate-100 ring-1 ring-border/10 backdrop-blur-md">
                 <Sparkles className="h-4 w-4 text-amber-300" />
                 Ready for exams that feel exciting and fair?
               </div>
@@ -81,7 +81,7 @@ export default function LandingPage() {
               <div className="flex flex-col gap-4 sm:flex-row">
                 <Link
                   to="/register"
-                  className="inline-flex items-center justify-center rounded-full bg-indigo-500 px-6 py-3 text-base font-semibold text-white shadow-lg shadow-indigo-500/20 transition hover:bg-indigo-400"
+                  className="inline-flex items-center justify-center rounded-full bg-indigo-500 px-6 py-3 text-base font-semibold text-primary-foreground shadow-lg shadow-indigo-500/20 transition hover:bg-indigo-400"
                 >
                   Get Started
                 </Link>
@@ -94,29 +94,29 @@ export default function LandingPage() {
               </div>
 
               <div className="grid gap-4 sm:grid-cols-3">
-                <div className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl">
+                <div className="rounded-3xl border border-border/10 bg-card/5 p-5 backdrop-blur-xl">
                   <p className="text-3xl font-semibold">100+</p>
                   <p className="mt-2 text-sm text-slate-400">Live exams launched</p>
                 </div>
-                <div className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl">
+                <div className="rounded-3xl border border-border/10 bg-card/5 p-5 backdrop-blur-xl">
                   <p className="text-3xl font-semibold">50k+</p>
                   <p className="mt-2 text-sm text-slate-400">Students preparing</p>
                 </div>
-                <div className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl">
+                <div className="rounded-3xl border border-border/10 bg-card/5 p-5 backdrop-blur-xl">
                   <p className="text-3xl font-semibold">99.9%</p>
                   <p className="mt-2 text-sm text-slate-400">System uptime</p>
                 </div>
               </div>
             </div>
 
-            <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900/90 p-6 shadow-2xl shadow-slate-950/60">
+            <div className="relative overflow-hidden rounded-[2rem] border border-border/10 bg-slate-900/90 p-6 shadow-2xl shadow-slate-950/60">
               <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-r from-indigo-400/20 via-transparent to-cyan-400/20" />
               <div className="relative space-y-6">
-                <div className="rounded-3xl bg-slate-950/80 p-6 ring-1 ring-white/10 backdrop-blur-xl">
+                <div className="rounded-3xl bg-slate-950/80 p-6 ring-1 ring-border/10 backdrop-blur-xl">
                   <div className="flex items-center justify-between gap-4">
                     <div>
                       <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Live scorecard</p>
-                      <h2 className="mt-3 text-3xl font-semibold text-white">Exam readiness</h2>
+                      <h2 className="mt-3 text-3xl font-semibold text-primary-foreground">Exam readiness</h2>
                     </div>
                     <span className="inline-flex items-center rounded-full bg-slate-800 px-3 py-1 text-xs uppercase tracking-[0.24em] text-emerald-300">
                       Active
@@ -131,19 +131,19 @@ export default function LandingPage() {
                     ].map((stat) => (
                       <div key={stat.label} className="flex items-center justify-between rounded-3xl bg-slate-800/80 px-4 py-3">
                         <span className="text-sm text-slate-400">{stat.label}</span>
-                        <span className="text-base font-semibold text-white">{stat.value}</span>
+                        <span className="text-base font-semibold text-primary-foreground">{stat.value}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="rounded-3xl bg-slate-950/80 p-5 ring-1 ring-white/10 backdrop-blur-xl">
+                  <div className="rounded-3xl bg-slate-950/80 p-5 ring-1 ring-border/10 backdrop-blur-xl">
                     <p className="text-sm text-slate-400">Next exam</p>
-                    <p className="mt-3 text-lg font-semibold text-white">Math Mock Test</p>
+                    <p className="mt-3 text-lg font-semibold text-primary-foreground">Math Mock Test</p>
                     <p className="mt-2 text-sm text-slate-500">Starts in 2h 34m</p>
                   </div>
-                  <div className="rounded-3xl bg-slate-950/80 p-5 ring-1 ring-white/10 backdrop-blur-xl">
+                  <div className="rounded-3xl bg-slate-950/80 p-5 ring-1 ring-border/10 backdrop-blur-xl">
                     <p className="text-sm text-slate-400">Progress</p>
                     <div className="mt-4 h-3 overflow-hidden rounded-full bg-slate-800">
                       <div className="h-full w-3/5 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-400" />
@@ -161,7 +161,7 @@ export default function LandingPage() {
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <div className="space-y-6">
             <p className="text-sm uppercase tracking-[0.24em] text-slate-400">What makes it modern?</p>
-            <h2 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl">
+            <h2 className="text-4xl font-semibold tracking-tight text-primary-foreground sm:text-5xl">
               A seamless experience for every role.
             </h2>
             <p className="max-w-xl text-lg leading-8 text-slate-300">
@@ -173,12 +173,12 @@ export default function LandingPage() {
             {features.map((feature) => (
               <div
                 key={feature.title}
-                className="group rounded-3xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:border-indigo-500/30 hover:bg-slate-900/95"
+                className="group rounded-3xl border border-border/10 bg-card/5 p-6 transition hover:-translate-y-1 hover:border-indigo-500/30 hover:bg-slate-900/95"
               >
                 <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-500/10 text-indigo-300 transition group-hover:bg-indigo-500/20">
                   <feature.icon className="h-6 w-6" />
                 </div>
-                <h3 className="mt-6 text-xl font-semibold text-white">{feature.title}</h3>
+                <h3 className="mt-6 text-xl font-semibold text-primary-foreground">{feature.title}</h3>
                 <p className="mt-3 text-sm leading-6 text-slate-400">{feature.description}</p>
               </div>
             ))}
@@ -189,11 +189,11 @@ export default function LandingPage() {
       <div className="mx-auto max-w-7xl px-6 pb-20 sm:px-10 lg:px-16">
         <div className="grid gap-6 md:grid-cols-3">
           {roles.map((item) => (
-            <div key={item.role} className="rounded-3xl border border-white/10 bg-slate-900/80 p-8 shadow-2xl shadow-slate-950/40">
+            <div key={item.role} className="rounded-3xl border border-border/10 bg-slate-900/80 p-8 shadow-2xl shadow-slate-950/40">
               <div className="flex items-center justify-between gap-3">
                 <div>
                   <p className="text-sm uppercase tracking-[0.24em] text-slate-500">{item.role}</p>
-                  <h3 className="mt-4 text-2xl font-semibold text-white">{item.badge}</h3>
+                  <h3 className="mt-4 text-2xl font-semibold text-primary-foreground">{item.badge}</h3>
                 </div>
                 <span className={`rounded-full px-3 py-1 text-xs font-semibold ${item.accent}`}>{item.role.split(" ")[1]}</span>
               </div>

@@ -252,14 +252,14 @@ export default function EditExam() {
       </div>
       <div className="grid grid-cols-2 gap-4">
         <button
-          className="bg-green-600 text-white p-2 rounded"
+          className="bg-green-600 text-primary-foreground p-2 rounded"
           onClick={save}
           disabled={loading}
         >
           {loading ? 'Saving...' : 'Save Exam'}
         </button>
         <button
-          className="bg-red-600 text-white p-2 rounded"
+          className="bg-red-600 text-primary-foreground p-2 rounded"
           onClick={remove}
         >
           Delete Exam
@@ -274,9 +274,9 @@ export default function EditExam() {
           onChange={(e) => setScheduleTime(e.target.value)}
         />
         <div className="flex gap-2">
-          <button className="bg-blue-600 text-white p-2 rounded" onClick={schedule}>Schedule</button>
-          <button className="bg-yellow-500 text-white p-2 rounded" onClick={activate}>Activate</button>
-          <button className="bg-gray-700 text-white p-2 rounded" onClick={complete}>Complete</button>
+          <button className="bg-blue-600 text-primary-foreground p-2 rounded" onClick={schedule}>Schedule</button>
+          <button className="bg-yellow-500 text-primary-foreground p-2 rounded" onClick={activate}>Activate</button>
+          <button className="bg-gray-700 text-primary-foreground p-2 rounded" onClick={complete}>Complete</button>
         </div>
       </div>
     </div>

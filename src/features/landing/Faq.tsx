@@ -14,13 +14,13 @@ export default function FAQ() {
       <div className="max-w-3xl mx-auto space-y-12">
         <div className="text-center space-y-4">
           <HelpCircle className="w-12 h-12 text-sky-500 mx-auto" />
-          <h1 className="text-4xl font-extrabold text-white tracking-tight">Frequently Asked Questions</h1>
+          <h1 className="text-4xl font-extrabold text-primary-foreground tracking-tight">Frequently Asked Questions</h1>
         </div>
 
         <div className="space-y-4">
           {faqs.map((faq, i) => (
-            <div key={i} className="bg-slate-900/80 border border-white/10 p-6 rounded-2xl backdrop-blur-xl">
-              <h3 className="text-lg font-bold text-white mb-2">{faq.q}</h3>
+            <div key={i} className="bg-slate-900/80 border border-border/10 p-6 rounded-2xl backdrop-blur-xl">
+              <h3 className="text-lg font-bold text-primary-foreground mb-2">{faq.q}</h3>
               <p className="text-sm text-slate-400 leading-relaxed">{faq.a}</p>
             </div>
           ))}

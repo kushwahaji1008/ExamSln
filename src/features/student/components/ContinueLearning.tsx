@@ -19,13 +19,13 @@ export default function ContinueLearning({ course }: ContinueLearningProps) {
 
   if (!course) {
     return (
-      <div className="rounded-3xl border border-white/10 bg-slate-900/80 p-8 backdrop-blur-xl text-center">
+      <div className="rounded-3xl border border-border/10 bg-slate-900/80 p-8 backdrop-blur-xl text-center">
         <BookOpen className="mx-auto h-12 w-12 text-slate-600 mb-4" />
-        <h2 className="text-xl font-bold text-white mb-2">Ready to start?</h2>
+        <h2 className="text-xl font-bold text-primary-foreground mb-2">Ready to start?</h2>
         <p className="text-slate-400 mb-6">You don't have any active courses yet. Browse the catalog to begin learning.</p>
         <button 
           onClick={() => navigate('/student/courses')}
-          className="rounded-xl bg-sky-500 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-400 shadow-lg shadow-sky-500/20"
+          className="rounded-xl bg-sky-500 px-6 py-2.5 text-sm font-semibold text-primary-foreground transition hover:bg-sky-400 shadow-lg shadow-sky-500/20"
         >
           Browse Courses
         </button>
@@ -34,12 +34,12 @@ export default function ContinueLearning({ course }: ContinueLearningProps) {
   }
 
   return (
-    <div className="rounded-3xl border border-white/10 bg-slate-900/80 p-6 sm:p-8 backdrop-blur-xl relative overflow-hidden group">
+    <div className="rounded-3xl border border-border/10 bg-slate-900/80 p-6 sm:p-8 backdrop-blur-xl relative overflow-hidden group">
       {/* Subtle Background Glow */}
       <div className="absolute top-0 right-0 -mr-16 -mt-16 h-48 w-48 rounded-full bg-sky-500/10 blur-3xl transition duration-500 group-hover:bg-sky-500/20 pointer-events-none" />
 
       <div className="flex items-center justify-between mb-6 relative z-10">
-        <h2 className="text-xl font-bold text-white tracking-tight">Continue Learning</h2>
+        <h2 className="text-xl font-bold text-primary-foreground tracking-tight">Continue Learning</h2>
         <span className="text-sm font-medium text-sky-400">{course.progressPercentage}% Complete</span>
       </div>
 
@@ -60,7 +60,7 @@ export default function ContinueLearning({ course }: ContinueLearningProps) {
 
           {/* Progress Bar */}
           <div className="space-y-1.5">
-            <div className="h-2 w-full overflow-hidden rounded-full bg-slate-950 border border-white/5">
+            <div className="h-2 w-full overflow-hidden rounded-full bg-slate-950 border border-border/5">
               <div 
                 className="h-full rounded-full bg-gradient-to-r from-sky-500 to-emerald-400 transition-all duration-1000"
                 style={{ width: `${course.progressPercentage}%` }}
@@ -75,7 +75,7 @@ export default function ContinueLearning({ course }: ContinueLearningProps) {
 
         <button 
           onClick={() => navigate(`/student/course/${course.id}`)}
-          className="w-full sm:w-auto shrink-0 inline-flex items-center justify-center gap-2 rounded-xl bg-white text-slate-950 px-6 py-3 text-sm font-bold transition hover:bg-slate-200 hover:scale-105 active:scale-95 shadow-xl shadow-white/10"
+          className="w-full sm:w-auto shrink-0 inline-flex items-center justify-center gap-2 rounded-xl bg-card text-slate-950 px-6 py-3 text-sm font-bold transition hover:bg-slate-200 hover:scale-105 active:scale-95 shadow-xl shadow-border/10"
         >
           <PlayCircle className="h-4 w-4" />
           Resume

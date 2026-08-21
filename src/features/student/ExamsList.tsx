@@ -17,8 +17,8 @@ export default function ExamsList({ exams, title = "Active Assessments" }: Exams
   const navigate = useNavigate();
 
   return (
-    <div className="rounded-3xl border border-white/10 bg-slate-900/80 p-6 backdrop-blur-xl">
-      <h2 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
+    <div className="rounded-3xl border border-border/10 bg-slate-900/80 p-6 backdrop-blur-xl">
+      <h2 className="text-lg font-bold text-primary-foreground mb-6 flex items-center gap-2">
         <FileText className="h-5 w-5 text-emerald-400" />
         {title}
       </h2>
@@ -38,7 +38,7 @@ export default function ExamsList({ exams, title = "Active Assessments" }: Exams
               </div>
               <button 
                 onClick={() => navigate(`/student/exam/${exam.id}`)}
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-800 text-slate-400 transition group-hover:bg-sky-500 group-hover:text-white"
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-800 text-slate-400 transition group-hover:bg-sky-500 group-hover:text-primary-foreground"
               >
                 <ArrowRight className="h-4 w-4" />
               </button>

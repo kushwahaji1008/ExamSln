@@ -159,16 +159,16 @@ export default function AttemptRunner() {
   };
 
   if (loading) {
-    return <div className="rounded-3xl border border-slate-200 bg-white p-8 text-slate-500">Loading attempt details...</div>;
+    return <div className="rounded-3xl border border-slate-200 bg-card p-8 text-slate-500">Loading attempt details...</div>;
   }
 
   if (!attempt) {
-    return <div className="rounded-3xl border border-slate-200 bg-white p-8 text-slate-500">Could not load the attempt.</div>;
+    return <div className="rounded-3xl border border-slate-200 bg-card p-8 text-slate-500">Could not load the attempt.</div>;
   }
 
   return (
     <div className="space-y-8">
-      <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+      <div className="rounded-3xl border border-slate-200 bg-card p-8 shadow-sm">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Attempt</p>
@@ -196,7 +196,7 @@ export default function AttemptRunner() {
             const isText = question.type === 'text' || question.questionType === 'essay' || question.questionType === 'written';
 
             return (
-              <div key={questionId} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+              <div key={questionId} className="rounded-3xl border border-slate-200 bg-card p-6 shadow-sm">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                   <div>
                     <p className="text-sm font-semibold text-slate-900">Question {index + 1}</p>
@@ -281,7 +281,7 @@ export default function AttemptRunner() {
                     type="button"
                     onClick={() => handleSubmitAnswer(question)}
                     disabled={savingQuestion === questionId}
-                    className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:bg-slate-300"
+                    className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:bg-slate-300"
                   >
                     <Send size={16} />
                     {savingQuestion === questionId ? 'Saving...' : 'Save answer'}
@@ -305,7 +305,7 @@ export default function AttemptRunner() {
                 type="button"
                 onClick={handleSubmitExam}
                 disabled={!canSubmitExam || submitting}
-                className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-500 disabled:cursor-not-allowed disabled:bg-slate-300"
+                className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-5 py-3 text-sm font-semibold text-primary-foreground transition hover:bg-emerald-500 disabled:cursor-not-allowed disabled:bg-slate-300"
               >
                 {submitting ? 'Submitting...' : 'Submit attempt'}
               </button>

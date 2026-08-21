@@ -17,9 +17,9 @@ export default function UpcomingExams({ exams = [] }: UpcomingExamsProps) {
   const navigate = useNavigate();
 
   return (
-    <div className="rounded-3xl border border-white/10 bg-slate-900/80 p-6 backdrop-blur-xl">
+    <div className="rounded-3xl border border-border/10 bg-slate-900/80 p-6 backdrop-blur-xl">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-lg font-bold text-white">Upcoming Exams</h2>
+        <h2 className="text-lg font-bold text-primary-foreground">Upcoming Exams</h2>
         <button 
           onClick={() => navigate('/student/exams')}
           className="text-sm font-medium text-sky-400 hover:text-sky-300 transition"
@@ -55,7 +55,7 @@ export default function UpcomingExams({ exams = [] }: UpcomingExamsProps) {
               
               <button 
                 onClick={() => navigate(`/student/exam/${exam.id}`)}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-slate-800 py-2.5 text-sm font-semibold text-slate-200 transition group-hover:bg-sky-500 group-hover:text-white"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-slate-800 py-2.5 text-sm font-semibold text-slate-200 transition group-hover:bg-sky-500 group-hover:text-primary-foreground"
               >
                 <span>View Details</span>
                 <ArrowRight className="h-4 w-4" />

@@ -205,13 +205,13 @@ export default function EditQuestion() {
 
       <div className="flex gap-2">
         <button
-          className="bg-green-600 text-white p-2 rounded"
+          className="bg-green-600 text-primary-foreground p-2 rounded"
           onClick={save}
           disabled={loading}
         >
           {loading ? 'Saving...' : 'Save Question'}
         </button>
-        <button className="bg-red-600 text-white p-2 rounded" onClick={deleteQuestion}>
+        <button className="bg-red-600 text-primary-foreground p-2 rounded" onClick={deleteQuestion}>
           Delete Question
         </button>
       </div>

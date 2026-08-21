@@ -44,10 +44,10 @@ export default function AdminDashboard() {
       />
 
       <section className="grid gap-6 xl:grid-cols-[1.3fr_0.7fr]">
-        <div className="rounded-[2rem] bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-8 text-white shadow-2xl shadow-slate-950/40">
+        <div className="rounded-[2rem] bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-8 text-primary-foreground shadow-2xl shadow-slate-950/40">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
             <div className="space-y-4">
-              <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm uppercase tracking-[0.24em] text-slate-200">
+              <span className="inline-flex items-center gap-2 rounded-full bg-card/10 px-4 py-2 text-sm uppercase tracking-[0.24em] text-slate-200">
                 <Sparkles size={14} /> Platform pulse
               </span>
               <h2 className="text-4xl font-semibold tracking-tight">All systems are go.</h2>
@@ -55,21 +55,21 @@ export default function AdminDashboard() {
                 Track the latest user trends, review health status, and take action on critical workflows from one modern admin view.
               </p>
             </div>
-            <div className="rounded-3xl border border-white/10 bg-white/10 p-6 text-center">
+            <div className="rounded-3xl border border-border/10 bg-card/10 p-6 text-center">
               <p className="text-sm uppercase tracking-[0.24em] text-slate-300">Users onboarded</p>
-              <p className="mt-4 text-4xl font-semibold text-white">{Array.isArray(users) ? users.length : 0}</p>
+              <p className="mt-4 text-4xl font-semibold text-primary-foreground">{Array.isArray(users) ? users.length : 0}</p>
               <p className="text-sm text-slate-300">Current registered users</p>
             </div>
           </div>
         </div>
 
-        <div className="rounded-[2rem] border border-slate-200/80 bg-white p-6 shadow-lg shadow-slate-900/5">
+        <div className="rounded-[2rem] border border-slate-200/80 bg-card p-6 shadow-lg shadow-slate-900/5">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Next step</p>
               <h3 className="mt-2 text-2xl font-semibold text-slate-900">Review system health</h3>
             </div>
-            <button className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-800">
+            <button className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-slate-800">
               Go to health
               <ChevronRight size={16} />
             </button>
@@ -80,7 +80,7 @@ export default function AdminDashboard() {
 
       <div className="grid gap-6 xl:grid-cols-3">
         {summaryCards.map((card) => (
-          <div key={card.label} className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-lg shadow-slate-900/5 transition hover:-translate-y-1 hover:shadow-slate-300/20">
+          <div key={card.label} className="rounded-[2rem] border border-slate-200 bg-card p-6 shadow-lg shadow-slate-900/5 transition hover:-translate-y-1 hover:shadow-slate-300/20">
             <div className="flex items-center justify-between gap-4">
               <div>
                 <p className="text-sm uppercase tracking-[0.24em] text-slate-500">{card.label}</p>
@@ -95,7 +95,7 @@ export default function AdminDashboard() {
       </div>
 
       <div className="grid gap-6 xl:grid-cols-2">
-        <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-lg shadow-slate-900/5">
+        <div className="rounded-[2rem] border border-slate-200 bg-card p-6 shadow-lg shadow-slate-900/5">
           <div className="flex items-center justify-between mb-6">
             <div>
               <h2 className="text-xl font-semibold text-slate-900">Role Distribution</h2>
@@ -113,7 +113,7 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-lg shadow-slate-900/5">
+        <div className="rounded-[2rem] border border-slate-200 bg-card p-6 shadow-lg shadow-slate-900/5">
           <div className="flex items-center justify-between mb-6">
             <div>
               <h2 className="text-xl font-semibold text-slate-900">Recent Users</h2>

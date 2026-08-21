@@ -33,8 +33,8 @@ export default function ResetPassword() {
 
   return (
     <div className="min-h-screen w-full bg-slate-950 text-slate-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-md rounded-3xl bg-slate-900/90 border border-white/10 p-8 shadow-2xl backdrop-blur-xl">
-        <h2 className="text-3xl font-bold text-white tracking-tight mb-2">Create New Password</h2>
+      <div className="w-full max-w-md rounded-3xl bg-slate-900/90 border border-border/10 p-8 shadow-2xl backdrop-blur-xl">
+        <h2 className="text-3xl font-bold text-primary-foreground tracking-tight mb-2">Create New Password</h2>
         <p className="text-sm text-slate-400 mb-8">Enter the OTP sent to your email and your new secure password.</p>
 
         <form onSubmit={handleSubmit} className="space-y-5">
@@ -75,7 +75,7 @@ export default function ResetPassword() {
             </div>
           )}
 
-          <button type="submit" disabled={loading} className="w-full rounded-xl bg-sky-500 py-3.5 text-sm font-semibold text-white shadow-lg transition-all hover:bg-sky-400 disabled:opacity-50">
+          <button type="submit" disabled={loading} className="w-full rounded-xl bg-sky-500 py-3.5 text-sm font-semibold text-primary-foreground shadow-lg transition-all hover:bg-sky-400 disabled:opacity-50">
             {loading ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : 'Reset Password'}
           </button>
         </form>

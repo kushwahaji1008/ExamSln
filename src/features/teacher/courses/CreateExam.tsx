@@ -55,7 +55,7 @@ export default function CreateExam() {
       };
 
       // POST request to your Exam backend endpoint
-      const response = await apiClient.post('/api/exams', payload);
+      const response = await apiClient.post('/exams', payload);
       
       const newExamId = response.data.id; 
 
@@ -73,7 +73,7 @@ export default function CreateExam() {
     <div className="space-y-8 max-w-4xl mx-auto font-sans pb-12">
       <PageHeader title="Create New Exam" subtitle="Configure assessment rules, grading, and proctoring settings." />
 
-      <form onSubmit={handleSubmit} className="rounded-[2rem] border border-slate-200 bg-white p-6 sm:p-10 shadow-sm space-y-8">
+      <form onSubmit={handleSubmit} className="rounded-[2rem] border border-slate-200 bg-card p-6 sm:p-10 shadow-sm space-y-8">
         
         {error && (
           <div className="p-4 bg-rose-50 border border-rose-200 rounded-2xl text-rose-600 text-sm font-medium">
@@ -92,7 +92,7 @@ export default function CreateExam() {
               <input
                 type="text" required placeholder="e.g., Midterm Assessment"
                 value={formData.title} onChange={e => setFormData({ ...formData, title: e.target.value })}
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-4 py-3 text-sm outline-none focus:border-indigo-500 focus:bg-white"
+                className="w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-4 py-3 text-sm outline-none focus:border-indigo-500 focus:bg-card"
               />
             </div>
           </div>
@@ -104,7 +104,7 @@ export default function CreateExam() {
               <textarea
                 rows={3} placeholder="Brief summary of the exam contents..."
                 value={formData.description} onChange={e => setFormData({ ...formData, description: e.target.value })}
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-4 py-3 text-sm outline-none focus:border-indigo-500 focus:bg-white resize-none"
+                className="w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-4 py-3 text-sm outline-none focus:border-indigo-500 focus:bg-card resize-none"
               />
             </div>
           </div>
@@ -178,7 +178,7 @@ export default function CreateExam() {
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" className="sr-only peer" checked={formData.settings.requireProctoring} onChange={e => handleSettingChange('requireProctoring', e.target.checked)} />
-                <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-border after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-card after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
               </label>
             </div>
 
@@ -190,7 +190,7 @@ export default function CreateExam() {
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" className="sr-only peer" checked={formData.settings.preventTabSwitch} onChange={e => handleSettingChange('preventTabSwitch', e.target.checked)} />
-                <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-border after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-card after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
               </label>
             </div>
 
@@ -215,7 +215,7 @@ export default function CreateExam() {
                 )}
                 <label className="relative inline-flex items-center cursor-pointer shrink-0">
                   <input type="checkbox" className="sr-only peer" checked={formData.settings.enableNegativeMarking} onChange={e => handleSettingChange('enableNegativeMarking', e.target.checked)} />
-                  <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                  <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-border after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-card after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
                 </label>
               </div>
             </div>
@@ -230,7 +230,7 @@ export default function CreateExam() {
           </Link>
           <button
             type="submit" disabled={loading}
-            className="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-8 py-3 text-sm font-bold text-white shadow-lg shadow-indigo-500/30 hover:-translate-y-0.5 hover:bg-indigo-500 transition-all disabled:opacity-50"
+            className="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-8 py-3 text-sm font-bold text-primary-foreground shadow-lg shadow-indigo-500/30 hover:-translate-y-0.5 hover:bg-indigo-500 transition-all disabled:opacity-50"
           >
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <>Create Exam & Add Questions <ArrowRight className="w-4 h-4" /></>}
           </button>

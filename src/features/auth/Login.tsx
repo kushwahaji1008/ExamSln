@@ -75,14 +75,14 @@ export default function Login() {
       <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
         
         {/* Left Hero Visual Card */}
-        <div className="lg:col-span-7 hidden lg:flex flex-col justify-between rounded-3xl bg-gradient-to-br from-slate-900/80 via-slate-900/40 to-slate-950/80 p-12 ring-1 ring-white/10 backdrop-blur-2xl min-h-[640px]">
+        <div className="lg:col-span-7 hidden lg:flex flex-col justify-between rounded-3xl bg-gradient-to-br from-slate-900/80 via-slate-900/40 to-slate-950/80 p-12 ring-1 ring-border/10 backdrop-blur-2xl min-h-[640px]">
           <div className="space-y-6">
             <div className="inline-flex items-center gap-2 rounded-full bg-sky-500/10 border border-sky-500/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-sky-400">
               <Sparkles className="w-3.5 h-3.5" />
               <span>ExamSolution Engine v1.0</span>
             </div>
 
-            <h1 className="text-5xl font-extrabold leading-tight tracking-tight text-white">
+            <h1 className="text-5xl font-extrabold leading-tight tracking-tight text-primary-foreground">
               Master your learning journey with <span className="bg-gradient-to-r from-sky-400 via-indigo-400 to-violet-400 bg-clip-text text-transparent">real-time insights</span>.
             </h1>
 
@@ -92,18 +92,18 @@ export default function Login() {
           </div>
 
           <div className="grid grid-cols-2 gap-4 mt-8">
-            <div className="rounded-2xl bg-slate-900/60 border border-white/5 p-5 backdrop-blur-md">
+            <div className="rounded-2xl bg-slate-900/60 border border-border/5 p-5 backdrop-blur-md">
               <div className="flex items-center gap-3 text-sky-400 mb-2">
                 <ShieldCheck className="w-5 h-5" />
-                <span className="font-semibold text-white">AI Proctoring</span>
+                <span className="font-semibold text-primary-foreground">AI Proctoring</span>
               </div>
               <p className="text-xs text-slate-400 leading-5">Automated detection ensuring complete integrity during online exams.</p>
             </div>
 
-            <div className="rounded-2xl bg-slate-900/60 border border-white/5 p-5 backdrop-blur-md">
+            <div className="rounded-2xl bg-slate-900/60 border border-border/5 p-5 backdrop-blur-md">
               <div className="flex items-center gap-3 text-indigo-400 mb-2">
                 <Zap className="w-5 h-5" />
-                <span className="font-semibold text-white">Instant Feedback</span>
+                <span className="font-semibold text-primary-foreground">Instant Feedback</span>
               </div>
               <p className="text-xs text-slate-400 leading-5">Receive instant score reports and question explanations right after submission.</p>
             </div>
@@ -111,9 +111,9 @@ export default function Login() {
         </div>
 
         {/* Right Authentication Form */}
-        <div className="lg:col-span-5 w-full rounded-3xl bg-slate-900/90 border border-white/10 p-8 sm:p-10 shadow-2xl backdrop-blur-xl">
+        <div className="lg:col-span-5 w-full rounded-3xl bg-slate-900/90 border border-border/10 p-8 sm:p-10 shadow-2xl backdrop-blur-xl">
           <div className="mb-8">
-            <h2 className="text-3xl font-bold text-white tracking-tight">Sign In</h2>
+            <h2 className="text-3xl font-bold text-primary-foreground tracking-tight">Sign In</h2>
             <p className="mt-2 text-sm text-slate-400">
               Enter your credentials to access your account.
             </p>
@@ -180,7 +180,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full mt-2 inline-flex items-center justify-center gap-2 rounded-xl bg-sky-500 py-3.5 px-6 text-sm font-semibold text-white shadow-lg shadow-sky-500/20 transition-all duration-200 hover:bg-sky-400 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-sky-500"
+              className="w-full mt-2 inline-flex items-center justify-center gap-2 rounded-xl bg-sky-500 py-3.5 px-6 text-sm font-semibold text-primary-foreground shadow-lg shadow-sky-500/20 transition-all duration-200 hover:bg-sky-400 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-sky-500"
             >
               {loading ? (
                 <>

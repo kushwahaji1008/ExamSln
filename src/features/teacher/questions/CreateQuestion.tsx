@@ -201,7 +201,7 @@ export default function CreateQuestion() {
       />
 
       <button
-        className="bg-blue-600 text-white p-2 rounded"
+        className="bg-blue-600 text-primary-foreground p-2 rounded"
         onClick={create}
         disabled={loading}
       >

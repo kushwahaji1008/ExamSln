@@ -27,7 +27,7 @@ export default function CreateCourse() {
 
     try {
       // POST request to your backend
-      const response = await apiClient.post('/api/videos/courses', formData);
+      const response = await apiClient.post('/videos/courses', formData);
       
       // Assuming your backend returns the created course object with an id
       const newCourseId = response.data.id; 
@@ -46,7 +46,7 @@ export default function CreateCourse() {
     <div className="space-y-8 max-w-3xl mx-auto font-sans pb-12">
       <PageHeader title="Create New Course" subtitle="Start by giving your course a title, pricing, and category." />
 
-      <form onSubmit={handleSubmit} className="rounded-[2rem] border border-slate-200 bg-white p-6 sm:p-10 shadow-sm space-y-6">
+      <form onSubmit={handleSubmit} className="rounded-[2rem] border border-slate-200 bg-card p-6 sm:p-10 shadow-sm space-y-6">
         
         {error && (
           <div className="p-4 bg-rose-50 border border-rose-200 rounded-2xl text-rose-600 text-sm font-medium">
@@ -62,7 +62,7 @@ export default function CreateCourse() {
             <input
               type="text" required placeholder="e.g., Complete Python Bootcamp"
               value={formData.title} onChange={e => setFormData({ ...formData, title: e.target.value })}
-              className="w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-4 py-3 text-sm text-slate-900 outline-none focus:border-indigo-500 focus:bg-white focus:ring-1 focus:ring-indigo-500"
+              className="w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-4 py-3 text-sm text-slate-900 outline-none focus:border-indigo-500 focus:bg-card focus:ring-1 focus:ring-indigo-500"
             />
           </div>
         </div>
@@ -75,7 +75,7 @@ export default function CreateCourse() {
             <textarea
               rows={4} placeholder="What will students learn in this course?"
               value={formData.description} onChange={e => setFormData({ ...formData, description: e.target.value })}
-              className="w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-4 py-3 text-sm text-slate-900 outline-none focus:border-indigo-500 focus:bg-white focus:ring-1 focus:ring-indigo-500 resize-none"
+              className="w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-4 py-3 text-sm text-slate-900 outline-none focus:border-indigo-500 focus:bg-card focus:ring-1 focus:ring-indigo-500 resize-none"
             />
           </div>
         </div>
@@ -87,7 +87,7 @@ export default function CreateCourse() {
             <select
               value={formData.category}
               onChange={e => setFormData({ ...formData, category: Number(e.target.value) })}
-              className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none focus:border-indigo-500 focus:bg-white"
+              className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none focus:border-indigo-500 focus:bg-card"
             >
               <option value={0}>Programming / Development</option>
               <option value={1}>Data Science</option>
@@ -101,7 +101,7 @@ export default function CreateCourse() {
             <select
               value={formData.level}
               onChange={e => setFormData({ ...formData, level: Number(e.target.value) })}
-              className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none focus:border-indigo-500 focus:bg-white"
+              className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none focus:border-indigo-500 focus:bg-card"
             >
               <option value={0}>Beginner</option>
               <option value={1}>Intermediate</option>
@@ -124,7 +124,7 @@ export default function CreateCourse() {
                 onChange={e => setFormData({ ...formData, isFree: e.target.checked, price: e.target.checked ? 0 : formData.price })}
                 className="sr-only peer"
               />
-              <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+              <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-border after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-card after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
             </label>
           </div>
 
@@ -136,7 +136,7 @@ export default function CreateCourse() {
                 <input
                   type="number" min="1" step="0.01"
                   value={formData.price} onChange={e => setFormData({ ...formData, price: Number(e.target.value) })}
-                  className="w-full rounded-xl border border-slate-200 bg-white pl-11 pr-4 py-3 text-sm text-slate-900 outline-none focus:border-indigo-500"
+                  className="w-full rounded-xl border border-slate-200 bg-card pl-11 pr-4 py-3 text-sm text-slate-900 outline-none focus:border-indigo-500"
                 />
               </div>
             </div>
@@ -150,7 +150,7 @@ export default function CreateCourse() {
           </Link>
           <button
             type="submit" disabled={loading}
-            className="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-8 py-3 text-sm font-bold text-white shadow-lg shadow-indigo-500/30 hover:-translate-y-0.5 hover:bg-indigo-500 transition-all disabled:opacity-50"
+            className="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-8 py-3 text-sm font-bold text-primary-foreground shadow-lg shadow-indigo-500/30 hover:-translate-y-0.5 hover:bg-indigo-500 transition-all disabled:opacity-50"
           >
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <>Save & Build Curriculum <ArrowRight className="w-4 h-4" /></>}
           </button>

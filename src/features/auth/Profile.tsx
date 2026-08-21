@@ -263,9 +263,9 @@ export default function Profile() {
   return (
     <div className="space-y-8 max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 font-sans text-slate-100">
       {/* Header Bar */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-white/10 pb-6">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-border/10 pb-6">
         <div>
-          <h1 className="text-3xl font-extrabold tracking-tight text-white">Account Profile</h1>
+          <h1 className="text-3xl font-extrabold tracking-tight text-primary-foreground">Account Profile</h1>
           <p className="text-sm text-slate-400 mt-1">
             Manage your credentials and personal parameters for your {roleInfo.label} account.
           </p>
@@ -274,8 +274,8 @@ export default function Profile() {
           onClick={toggleEdit}
           className={`inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-200 ${
             editing
-              ? 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-white/10'
-              : 'bg-sky-500 text-white hover:bg-sky-400 shadow-lg shadow-sky-500/20'
+              ? 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-border/10'
+              : 'bg-sky-500 text-primary-foreground hover:bg-sky-400 shadow-lg shadow-sky-500/20'
           }`}
         >
           {editing ? (
@@ -315,15 +315,15 @@ export default function Profile() {
         <div className="lg:col-span-7 space-y-6">
           
           {/* Profile Details Card */}
-          <div className="rounded-3xl bg-slate-900/80 border border-white/10 p-6 sm:p-8 backdrop-blur-xl shadow-xl">
-            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 border-b border-white/5 pb-6">
-              <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-500 via-indigo-600 to-violet-600 text-3xl font-bold text-white shadow-lg shadow-sky-500/20">
+          <div className="rounded-3xl bg-slate-900/80 border border-border/10 p-6 sm:p-8 backdrop-blur-xl shadow-xl">
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 border-b border-border/5 pb-6">
+              <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-500 via-indigo-600 to-violet-600 text-3xl font-bold text-primary-foreground shadow-lg shadow-sky-500/20">
                 {initials}
               </div>
 
               <div className="space-y-2 text-center sm:text-left flex-1">
                 <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3">
-                  <h2 className="text-2xl font-bold text-white">{user.fullName}</h2>
+                  <h2 className="text-2xl font-bold text-primary-foreground">{user.fullName}</h2>
                   <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold border ${roleInfo.color}`}>
                     {roleInfo.label}
                   </span>
@@ -337,23 +337,23 @@ export default function Profile() {
 
             {!editing ? (
               <div className="grid gap-4 sm:grid-cols-3 pt-2">
-                <div className="rounded-2xl bg-slate-950/60 border border-white/5 p-4">
+                <div className="rounded-2xl bg-slate-950/60 border border-border/5 p-4">
                   <div className="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-1">Account Role</div>
-                  <div className="text-sm font-semibold text-white flex items-center gap-2">
+                  <div className="text-sm font-semibold text-primary-foreground flex items-center gap-2">
                     <Shield className="w-4 h-4 text-sky-400" />
                     <span>{roleInfo.label}</span>
                   </div>
                 </div>
 
-                <div className="rounded-2xl bg-slate-950/60 border border-white/5 p-4">
+                <div className="rounded-2xl bg-slate-950/60 border border-border/5 p-4">
                   <div className="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-1">Phone Number</div>
-                  <div className="text-sm font-semibold text-white flex items-center gap-2">
+                  <div className="text-sm font-semibold text-primary-foreground flex items-center gap-2">
                     <Phone className="w-4 h-4 text-emerald-400" />
                     <span>{user.phone || 'Not provided'}</span>
                   </div>
                 </div>
 
-                <div className="rounded-2xl bg-slate-950/60 border border-white/5 p-4">
+                <div className="rounded-2xl bg-slate-950/60 border border-border/5 p-4">
                   <div className="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-1">Status</div>
                   <div className="text-sm font-semibold text-emerald-400 flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
@@ -435,8 +435,8 @@ export default function Profile() {
           </div>
 
           {/* Password Update Card */}
-          <form onSubmit={handlePasswordChange} className="rounded-3xl border border-white/10 bg-slate-900/50 p-6 sm:p-8 backdrop-blur-xl shadow-xl">
-            <h2 className="text-xl font-semibold text-white mb-6 border-b border-white/10 pb-4">Security Settings</h2>
+          <form onSubmit={handlePasswordChange} className="rounded-3xl border border-border/10 bg-slate-900/50 p-6 sm:p-8 backdrop-blur-xl shadow-xl">
+            <h2 className="text-xl font-semibold text-primary-foreground mb-6 border-b border-border/10 pb-4">Security Settings</h2>
             
             <div className="space-y-5">
               <div className="space-y-2">
@@ -467,7 +467,7 @@ export default function Profile() {
             )}
 
             <div className="mt-8 flex justify-end">
-              <button type="submit" disabled={passLoading} className="inline-flex items-center gap-2 rounded-xl bg-slate-800 border border-white/10 px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-slate-700 disabled:opacity-50">
+              <button type="submit" disabled={passLoading} className="inline-flex items-center gap-2 rounded-xl bg-slate-800 border border-border/10 px-6 py-3 text-sm font-semibold text-primary-foreground transition-all hover:bg-slate-700 disabled:opacity-50">
                 {passLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Update Password'}
               </button>
             </div>
@@ -480,21 +480,21 @@ export default function Profile() {
           <div className="grid gap-4 sm:grid-cols-2">
             {isStudent && (
               <>
-                <div className="rounded-2xl bg-slate-900/80 border border-white/10 p-5 backdrop-blur-xl shadow-xl">
+                <div className="rounded-2xl bg-slate-900/80 border border-border/10 p-5 backdrop-blur-xl shadow-xl">
                   <div className="flex items-center gap-3 text-sky-400 mb-2">
                     <BookOpen className="w-5 h-5" />
                     <span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Courses</span>
                   </div>
-                  <div className="text-2xl font-bold text-white">{activity.courseCount}</div>
+                  <div className="text-2xl font-bold text-primary-foreground">{activity.courseCount}</div>
                   <p className="text-xs text-slate-500 mt-1">Enrolled courses</p>
                 </div>
 
-                <div className="rounded-2xl bg-slate-900/80 border border-white/10 p-5 backdrop-blur-xl shadow-xl">
+                <div className="rounded-2xl bg-slate-900/80 border border-border/10 p-5 backdrop-blur-xl shadow-xl">
                   <div className="flex items-center gap-3 text-indigo-400 mb-2">
                     <Award className="w-5 h-5" />
                     <span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Exams</span>
                   </div>
-                  <div className="text-2xl font-bold text-white">{activity.upcomingExamCount}</div>
+                  <div className="text-2xl font-bold text-primary-foreground">{activity.upcomingExamCount}</div>
                   <p className="text-xs text-slate-500 mt-1">Upcoming assessments</p>
                 </div>
               </>
@@ -502,21 +502,21 @@ export default function Profile() {
 
             {isTeacher && (
               <>
-                <div className="rounded-2xl bg-slate-900/80 border border-white/10 p-5 backdrop-blur-xl shadow-xl">
+                <div className="rounded-2xl bg-slate-900/80 border border-border/10 p-5 backdrop-blur-xl shadow-xl">
                   <div className="flex items-center gap-3 text-emerald-400 mb-2">
                     <HelpCircle className="w-5 h-5" />
                     <span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Question Bank</span>
                   </div>
-                  <div className="text-2xl font-bold text-white">{activity.questionCount}</div>
+                  <div className="text-2xl font-bold text-primary-foreground">{activity.questionCount}</div>
                   <p className="text-xs text-slate-500 mt-1">Questions created</p>
                 </div>
 
-                <div className="rounded-2xl bg-slate-900/80 border border-white/10 p-5 backdrop-blur-xl shadow-xl">
+                <div className="rounded-2xl bg-slate-900/80 border border-border/10 p-5 backdrop-blur-xl shadow-xl">
                   <div className="flex items-center gap-3 text-sky-400 mb-2">
                     <GraduationCap className="w-5 h-5" />
                     <span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Exams</span>
                   </div>
-                  <div className="text-2xl font-bold text-white">{activity.examCount}</div>
+                  <div className="text-2xl font-bold text-primary-foreground">{activity.examCount}</div>
                   <p className="text-xs text-slate-500 mt-1">Published exams</p>
                 </div>
               </>
@@ -524,16 +524,16 @@ export default function Profile() {
 
             {isAdmin && (
               <>
-                <div className="rounded-2xl bg-slate-900/80 border border-white/10 p-5 backdrop-blur-xl shadow-xl">
+                <div className="rounded-2xl bg-slate-900/80 border border-border/10 p-5 backdrop-blur-xl shadow-xl">
                   <div className="flex items-center gap-3 text-rose-400 mb-2">
                     <UserIcon className="w-5 h-5" />
                     <span className="text-xs uppercase tracking-wider font-semibold text-slate-400">System Users</span>
                   </div>
-                  <div className="text-2xl font-bold text-white">{activity.userCount}</div>
+                  <div className="text-2xl font-bold text-primary-foreground">{activity.userCount}</div>
                   <p className="text-xs text-slate-500 mt-1">Total registered users</p>
                 </div>
 
-                <div className="rounded-2xl bg-slate-900/80 border border-white/10 p-5 backdrop-blur-xl shadow-xl">
+                <div className="rounded-2xl bg-slate-900/80 border border-border/10 p-5 backdrop-blur-xl shadow-xl">
                   <div className="flex items-center gap-3 text-emerald-400 mb-2">
                     <Activity className="w-5 h-5" />
                     <span className="text-xs uppercase tracking-wider font-semibold text-slate-400">System Health</span>
@@ -545,8 +545,8 @@ export default function Profile() {
             )}
           </div>
 
-          <div className="rounded-2xl bg-slate-900/80 border border-white/10 p-6 backdrop-blur-xl space-y-3 shadow-xl">
-            <h3 className="text-lg font-bold text-white flex items-center gap-2">
+          <div className="rounded-2xl bg-slate-900/80 border border-border/10 p-6 backdrop-blur-xl space-y-3 shadow-xl">
+            <h3 className="text-lg font-bold text-primary-foreground flex items-center gap-2">
               <Shield className="w-5 h-5 text-sky-400" />
               <span>Role Overview</span>
             </h3>

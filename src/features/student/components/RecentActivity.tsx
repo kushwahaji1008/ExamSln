@@ -35,8 +35,8 @@ export default function RecentActivity({ activities = [] }: RecentActivityProps)
   };
 
   return (
-    <div className="rounded-3xl border border-white/10 bg-slate-900/80 p-6 backdrop-blur-xl h-full">
-      <h2 className="text-lg font-bold text-white mb-6">Recent Activity</h2>
+    <div className="rounded-3xl border border-border/10 bg-slate-900/80 p-6 backdrop-blur-xl h-full">
+      <h2 className="text-lg font-bold text-primary-foreground mb-6">Recent Activity</h2>
 
       {activities.length === 0 ? (
         <p className="text-sm text-slate-400 text-center py-6">No recent activity to show.</p>

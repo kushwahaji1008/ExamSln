@@ -33,11 +33,11 @@ export default function AddQuestions() {
       <PageHeader title="Add Questions" subtitle="Create new questions and add them to your exam." />
 
       <div className="flex gap-4 border-b border-slate-200 pb-4">
-        <button className="px-6 py-2 bg-indigo-600 text-white rounded-xl text-sm font-bold shadow-md">Create New</button>
-        <button className="px-6 py-2 bg-white text-slate-600 border border-slate-200 rounded-xl text-sm font-bold hover:bg-slate-50 transition">Select from Bank</button>
+        <button className="px-6 py-2 bg-indigo-600 text-primary-foreground rounded-xl text-sm font-bold shadow-md">Create New</button>
+        <button className="px-6 py-2 bg-card text-slate-600 border border-slate-200 rounded-xl text-sm font-bold hover:bg-slate-50 transition">Select from Bank</button>
       </div>
 
-      <form onSubmit={handleSave} className="rounded-[2rem] border border-slate-200 bg-white p-6 sm:p-10 shadow-sm space-y-8">
+      <form onSubmit={handleSave} className="rounded-[2rem] border border-slate-200 bg-card p-6 sm:p-10 shadow-sm space-y-8">
         
         <div className="space-y-4">
           <div className="flex items-center justify-between">
@@ -65,7 +65,7 @@ export default function AddQuestions() {
           
           <div className="space-y-3">
             {question.options.map((opt, index) => (
-              <div key={index} className={`flex items-center gap-3 p-3 rounded-xl border transition ${question.correctOptionIndex === index ? 'border-emerald-500 bg-emerald-50/50' : 'border-slate-200 bg-white'}`}>
+              <div key={index} className={`flex items-center gap-3 p-3 rounded-xl border transition ${question.correctOptionIndex === index ? 'border-emerald-500 bg-emerald-50/50' : 'border-slate-200 bg-card'}`}>
                 <input 
                   type="radio" name="correctAnswer" checked={question.correctOptionIndex === index}
                   onChange={() => setQuestion({ ...question, correctOptionIndex: index })}
@@ -84,7 +84,7 @@ export default function AddQuestions() {
 
         <div className="flex justify-end gap-4 border-t border-slate-100 pt-6">
           <Link to={`/teacher/exams/${examId || ''}`} className="px-6 py-3 text-sm font-bold text-slate-500 hover:bg-slate-50 rounded-full transition">Cancel</Link>
-          <button type="submit" className="flex items-center gap-2 px-8 py-3 bg-indigo-600 text-white rounded-full text-sm font-bold hover:bg-indigo-500 shadow-lg shadow-indigo-500/30 transition">
+          <button type="submit" className="flex items-center gap-2 px-8 py-3 bg-indigo-600 text-primary-foreground rounded-full text-sm font-bold hover:bg-indigo-500 shadow-lg shadow-indigo-500/30 transition">
             <PlusCircle className="w-4 h-4" /> Save & Add Another
           </button>
         </div>

@@ -18,7 +18,7 @@ export default function TeacherDashboard() {
       {/* Metrics Grid */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat, i) => (
-          <div key={i} className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition">
+          <div key={i} className="rounded-[2rem] border border-slate-200 bg-card p-6 shadow-sm hover:shadow-md transition">
             <div className="flex items-center gap-4">
               <div className={`p-4 rounded-2xl ${stat.bg}`}>
                 <stat.icon className={`w-6 h-6 ${stat.color}`} />
@@ -40,7 +40,7 @@ export default function TeacherDashboard() {
             <Link to="/teacher/courses" className="text-sm font-semibold text-indigo-600 hover:text-indigo-500">View all</Link>
           </div>
           
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-2 shadow-sm">
+          <div className="rounded-[2rem] border border-slate-200 bg-card p-2 shadow-sm">
             {[1, 2, 3].map((_, i) => (
               <div key={i} className="flex items-center justify-between p-4 hover:bg-slate-50 rounded-2xl transition cursor-pointer">
                 <div className="flex items-center gap-4">
@@ -63,12 +63,12 @@ export default function TeacherDashboard() {
         <div className="space-y-6">
           <h2 className="text-xl font-bold text-slate-900">Quick Actions</h2>
           <div className="flex flex-col gap-3">
-            <Link to="/teacher/courses/create" className="flex items-center gap-3 p-4 rounded-[1.5rem] bg-indigo-600 text-white hover:bg-indigo-500 transition shadow-lg shadow-indigo-500/20">
-              <div className="bg-white/20 p-2 rounded-xl"><BookOpen className="w-5 h-5" /></div>
+            <Link to="/teacher/courses/create" className="flex items-center gap-3 p-4 rounded-[1.5rem] bg-indigo-600 text-primary-foreground hover:bg-indigo-500 transition shadow-lg shadow-indigo-500/20">
+              <div className="bg-card/20 p-2 rounded-xl"><BookOpen className="w-5 h-5" /></div>
               <span className="font-bold">Create New Course</span>
               <Plus className="w-4 h-4 ml-auto" />
             </Link>
-            <Link to="/teacher/exams/create" className="flex items-center gap-3 p-4 rounded-[1.5rem] bg-white border border-slate-200 text-slate-700 hover:border-indigo-500 hover:text-indigo-600 transition shadow-sm">
+            <Link to="/teacher/exams/create" className="flex items-center gap-3 p-4 rounded-[1.5rem] bg-card border border-slate-200 text-slate-700 hover:border-indigo-500 hover:text-indigo-600 transition shadow-sm">
               <div className="bg-slate-100 p-2 rounded-xl"><FileText className="w-5 h-5" /></div>
               <span className="font-bold">Create New Exam</span>
               <Plus className="w-4 h-4 ml-auto" />

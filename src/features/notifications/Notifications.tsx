@@ -10,9 +10,9 @@ export default function Notifications() {
 
   return (
     <div className="max-w-3xl mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
-      <div className="flex items-center justify-between border-b border-white/10 pb-6">
+      <div className="flex items-center justify-between border-b border-border/10 pb-6">
         <div>
-          <h1 className="text-3xl font-extrabold text-white tracking-tight">Notifications</h1>
+          <h1 className="text-3xl font-extrabold text-primary-foreground tracking-tight">Notifications</h1>
           <p className="text-sm text-slate-400 mt-1">Stay updated on your exams, results, and system alerts.</p>
         </div>
         <button className="text-sm text-sky-400 hover:text-sky-300 font-semibold transition">Mark all as read</button>
@@ -20,7 +20,7 @@ export default function Notifications() {
 
       <div className="space-y-4">
         {notifications.map(notif => (
-          <div key={notif.id} className={`flex gap-4 p-5 rounded-2xl border transition-all ${notif.unread ? 'bg-slate-900/80 border-sky-500/30 shadow-lg shadow-sky-500/5' : 'bg-slate-900/40 border-white/5 opacity-75'}`}>
+          <div key={notif.id} className={`flex gap-4 p-5 rounded-2xl border transition-all ${notif.unread ? 'bg-slate-900/80 border-sky-500/30 shadow-lg shadow-sky-500/5' : 'bg-slate-900/40 border-border/5 opacity-75'}`}>
             <div className={`shrink-0 w-10 h-10 rounded-full flex items-center justify-center ${notif.type === 'exam' ? 'bg-sky-500/10 text-sky-400' : notif.type === 'grade' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'}`}>
               {notif.type === 'exam' && <BookOpen className="w-5 h-5" />}
               {notif.type === 'grade' && <CheckCircle2 className="w-5 h-5" />}
@@ -28,7 +28,7 @@ export default function Notifications() {
             </div>
             <div className="flex-1">
               <div className="flex items-center justify-between">
-                <h3 className={`text-sm font-bold ${notif.unread ? 'text-white' : 'text-slate-300'}`}>{notif.title}</h3>
+                <h3 className={`text-sm font-bold ${notif.unread ? 'text-primary-foreground' : 'text-slate-300'}`}>{notif.title}</h3>
                 <span className="text-xs text-slate-500">{notif.time}</span>
               </div>
               <p className="text-sm text-slate-400 mt-1">{notif.message}</p>
